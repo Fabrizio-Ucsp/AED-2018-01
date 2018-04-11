@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\user\documents\github\aed-2018-01\mergesortclassic\main.cpp(8): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\mergesortclassic\main.cpp(89): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\mergesortclassic\main.cpp(91): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+  MergeSortClassic.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\MergeSortClassic\Debug\MergeSortClassic.exe
