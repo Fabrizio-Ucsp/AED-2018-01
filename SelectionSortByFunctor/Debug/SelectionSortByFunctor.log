@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\user\documents\github\aed-2018-01\selectionsortbyfunctor\main.cpp(8): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\selectionsortbyfunctor\main.cpp(72): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\selectionsortbyfunctor\main.cpp(76): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+  SelectionSortByFunctor.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\SelectionSortByFunctor\Debug\SelectionSortByFunctor.exe
