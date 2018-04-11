@@ -78,8 +78,8 @@ int main() {
 	int tam;
 	int *arr;
 	float inicio, fin, t;
-	int tamanios[4] = { 6,50000,75000,100000 };
-	for (int i = 0; i < 1; i++) {
+	int tamanios[4] = { 25000,50000,75000,100000 };
+	for (int i = 0; i < 4; i++) {
 		tam = tamanios[i];
 		arr = new int[tam];
 		LlenarArray(arr, tam);
