@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\user\documents\github\aed-2018-01\selectionsortbypolymorphism\main.cpp(8): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\selectionsortbypolymorphism\main.cpp(69): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+c:\users\user\documents\github\aed-2018-01\selectionsortbypolymorphism\main.cpp(73): warning C4244: '=': conversión de 'clock_t' a 'float'; posible pérdida de datos
+  SelectionSortByPolymorphism.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\SelectionSortByPolymorphism\Debug\SelectionSortByPolymorphism.exe
