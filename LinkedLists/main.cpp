@@ -1,23 +1,24 @@
 #include<iostream>
 using namespace std;
 
-class IntNode {
+template <class T>
+class Node {
 public:
-	int info;
-	IntNode *next;
-	IntNode() {
+	T info;
+	Node<T> *next; 
+	Node() {
 		next = 0;
 	}
 
-	IntNode(int _info, IntNode *ptr = 0) {
+	Node(T _info, Node *ptr = 0) {
 		info = _info;
 		next = ptr;
 	}
 };
-
+template <class T>
 class IntList {
 public:
-	IntNode * head, *tail;
+	Node<T> *head, *tail;
 	IntList() {
 		head = tail = 0;
 	}
@@ -25,28 +26,28 @@ public:
 		return head == 0;
 	}
 	~IntList() {
-		for (IntNode *p; !isEmpty(); ) {
+		for (Node<T> *p; !isEmpty(); ) {
 			p = head->next;
 			delete head;
 			head = p;
 		}
 	}
 	void addtoHead(int info) {
-		head = new IntNode(info, head);
+		head = new Node<T>(info, head);
 		if (tail == 0) {
 			tail = head;
 		}
 	}
 	void addtoTail(int info) {
 		if (tail != 0) {
-			tail->next = new IntNode(info);
+			tail->next = new Node<T>(info);
 			tail = tail->next;
 		}
-		else head = tail = new IntNode(info);
+		else head = tail = new Node<T>(info);
 	}
 	int deleteFromHead() {
 		int infoHead = head->info;
-		IntNode *tmp = head;
+		Node<T> *tmp = head;
 		if (head == tail) {
 			head = tail = 0;
 		}
@@ -63,7 +64,7 @@ public:
 			head = tail = 0;
 		}
 		else {
-			IntNode *tmp;
+			Node<T> *tmp;
 			for (tmp = head; tmp->next != tail; tmp = tmp->next);
 			delete tail;
 			tail = tmp;
@@ -78,12 +79,12 @@ public:
 				head = tail = 0;
 			}
 			else if (infoNodo == head->info) {
-				IntNode *tmp = head->next;
+				Node<T> *tmp = head->next;
 				head = head->next;
 				delete tmp;
 			}
 			else {
-				IntNode *pred, *tmp;
+				Node<T> *pred, *tmp;
 				for (pred = head, tmp = head->next; tmp != 0 && !(tmp->info == infoNodo); pred = pred->next, tmp = tmp->next);
 				if (tmp != 0) {
 					pred->next = tmp->next;
@@ -96,17 +97,17 @@ public:
 		}
 	}
 	bool inInList(int num) const {
-		IntNode *tmp;
+		Node<T> *tmp;
 		for (tmp = head; tmp != 0 && !(tmp->info == num); tmp = tmp->next);
 		return tmp != 0;
 	}
 };
 
 int main() {
-	IntNode *p = new IntNode(10);
-	cout << "IntNode info: " << p->info;
-	p->next = new IntNode(8);
-	p->next->next = new IntNode(50);
+	Node<int> *p = new Node<int>(10);
+	cout << "Node info: " << p->info;
+	p->next = new Node<int>(8);
+	p->next->next = new Node<int>(50);
 
 	system("pause");
 	return 0;
