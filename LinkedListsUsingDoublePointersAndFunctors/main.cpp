@@ -7,7 +7,7 @@ struct CNode{
 	CNode<T> *m_next;
 	CNode(T x) {
 		data = x;
-		m_next = 0;
+		m_next = NULL;
 	}
 };
 
@@ -21,7 +21,6 @@ class CList {
 
 		bool find(T x, CNode<T>**& p) {
 			for(p = &m_head; (*p) && (*p)->data < x ; p=&(*p)->m_next){}
-			
 			return (*p) && (*p)->data == x;
 		}
 
@@ -70,7 +69,6 @@ class CList {
 int main() {
 	int tempo;
 	int tempo2;
-	CNode<int> **p;
 	CList<int> List;
 
 	int hasta = 1;
@@ -91,6 +89,9 @@ int main() {
 			cin >> tempo2;
 			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
 			List.Remove(tempo2);
+		}
+		if (hasta == 0) {
+			break;
 		}
 		List.Print();
 	}
