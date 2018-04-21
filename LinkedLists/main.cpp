@@ -27,7 +27,6 @@ public:
 	int isEmpty() {
 		return head == NULL;
 	}
-
 	void Insert(int info) {
 		Node<T> *tmp;
 		tmp = head;
@@ -36,22 +35,27 @@ public:
 			head = tmp2;
 		}
 		else {
-			if (info < tmp->data) {
+			//cout << "No esta vacio y pasa a evaluar" << endl;
+			if (info < tmp->data && info != tmp->data) {
+				//cout << "info es menor a la cabeza:" << endl;
 				Node<T> *tmp2 = new Node<T>(head->data, head->next);
 				Node<T> *tmp3 = new Node<T>(info);
 				head = tmp3;
 				head->next = tmp2;
 			}
 			else {
+				//cout << "info es mayor a la cabeza:" << endl;
 				Node<T> *truco;
 				truco = tmp;
-				while (tmp != NULL) {
-					if (info < tmp->data){
+				//cout << "y info tiene que ser menor diferente a la cabeza" << endl;
+				while (tmp != NULL && info != tmp->data) {
+					if (info < tmp->data) {
 						Node<T> *tmp2 = new Node<T>(info);
 						truco->next = tmp2;
 						tmp2->next = tmp;
 						break;
-					}else{
+					}
+					else {
 						truco = tmp;
 						tmp = tmp->next;
 					}
