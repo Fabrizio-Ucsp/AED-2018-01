@@ -4,40 +4,56 @@ using namespace std;
 template <class T>
 class Node {
 public:
-	T info;
-	Node<T> *next; 
-	Node() {
-		next = 0;
-	}
-
-	Node(T _info, Node *ptr = 0) {
-		info = _info;
-		next = ptr;
+	T data;
+	Node<T> *next;
+	Node(T x) {
+		data = x;
+		next =	0;
 	}
 };
+
 template <class T>
-class IntList {
+class CList {
 public:
 	Node<T> *head, *tail;
-	IntList() {
-		head = tail = 0;
+	CList( T x ) {
+		head = new Node<T>(x);
 	}
-	int isEmpty() {
-		return head == 0;
-	}
-	~IntList() {
-		for (Node<T> *p; !isEmpty(); ) {
-			p = head->next;
-			delete head;
-			head = p;
+	
+	void addToList(int info) {
+		Node<T> *tmp;
+		tmp = head;
+		cout << "AddToList:" << endl;
+		cout << "info: " << info << endl;
+		cout << "tmp -> data: " << tmp->data << endl;
+		cout << "tmp: " << tmp << endl;
+		cout << "head: " << head << endl;
+		if (info<tmp->data) {
+			Node<T> *tmp2 = new Node<T>(head->data);
+			Node<T> *tmp3 = new Node<T>(info);
+			head = tmp3;
+			head->next = tmp2;
+		}
+		while( tmp != NULL && tmp->data<info) {
+			cout << "Cuando el numero es mayor al head: " << endl;
+			Node<T> *tmp2 = new Node<T>(info);
+			tmp2 = tmp->next->next;
+			tmp = tmp2;
+			tmp = tmp->next;
 		}
 	}
-	void addtoHead(int info) {
-		head = new Node<T>(info, head);
-		if (tail == 0) {
-			tail = head;
+	void printList() {
+		cout << "--> ";
+		Node<T> *tmp;
+		tmp = head;
+		while (tmp != NULL) {
+			cout << tmp->data;
+			tmp = tmp->next;
+			cout << " --> ";
 		}
+		cout << " // " << endl;
 	}
+	/*
 	void addtoTail(int info) {
 		if (tail != 0) {
 			tail->next = new Node<T>(info);
@@ -100,15 +116,17 @@ public:
 		Node<T> *tmp;
 		for (tmp = head; tmp != 0 && !(tmp->info == num); tmp = tmp->next);
 		return tmp != 0;
-	}
+	}*/
 };
 
 int main() {
-	Node<int> *p = new Node<int>(10);
-	cout << "Node info: " << p->info;
-	p->next = new Node<int>(8);
-	p->next->next = new Node<int>(50);
+	CList<int> p(11) ;
+	cout << "Head info: " << p.head->data<<endl;
+	p.addToList(9);
+	p.printList();
 
+	p.addToList(10);
+	p.printList();
 	system("pause");
 	return 0;
 }

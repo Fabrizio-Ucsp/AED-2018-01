@@ -22,11 +22,13 @@ class CList {
 			//cout << "&m_head: " << &m_head << endl;
 
 			p = &m_head;
-			// << "*p: " << *p << endl;
+			cout << "*p: " << *p << endl;
+			cout << "m_head : " << m_head <<endl;
 			//cout << "(*p)->data: " << (*p)->data << endl;
 			//cout << "x: " << x << endl;
 			while (*p != NULL && (*p)->data < x)
 			{
+				cout << "En el find: " << endl;
 				p = &(*p)->m_next;
 			}
 			//cout << "(*p)->data: " << (*p)->data << endl;
