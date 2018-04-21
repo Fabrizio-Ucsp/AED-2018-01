@@ -1,2 +1,3 @@
 ﻿  main.cpp
-  LinkedListsUsingDoublePointers.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\LinkedListsUsingDoublePointersAndFunctors\Debug\LinkedListsUsingDoublePointers.exe
+c:\users\fabrizio\documents\github\aed-2018-01\linkedlistsusingdoublepointersandfunctors\main.cpp(73): warning C4101: 'p': variable local sin referencia
+  LinkedListsUsingDoublePointers.vcxproj -> C:\Users\Fabrizio\Documents\GitHub\AED-2018-01\LinkedListsUsingDoublePointersAndFunctors\Debug\LinkedListsUsingDoublePointers.exe

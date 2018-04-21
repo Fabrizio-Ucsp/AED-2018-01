@@ -15,44 +15,34 @@ template <class T>
 class CList {
 	public:
 		CNode<T> *m_head;
-		CList( T x) { 
-			m_head = new CNode<T>(x); 
+		CList() { 
+			m_head = NULL;
 		}
-		bool find(T x, CNode<T>**& p) {
-			//cout << "&m_head: " << &m_head << endl;
 
-			p = &m_head;
-			cout << "*p: " << *p << endl;
-			cout << "m_head : " << m_head <<endl;
-			//cout << "(*p)->data: " << (*p)->data << endl;
-			//cout << "x: " << x << endl;
-			while (*p != NULL && (*p)->data < x)
-			{
-				cout << "En el find: " << endl;
-				p = &(*p)->m_next;
-			}
-			//cout << "(*p)->data: " << (*p)->data << endl;
-			//cout << "x: " << x << endl;
-			return (*p) != NULL && (*p)->data == x;
+		bool find(T x, CNode<T>**& p) {
+			for(p = &m_head; (*p) && (*p)->data < x ; p=&(*p)->m_next){}
+			
+			return (*p) && (*p)->data == x;
 		}
+
 		bool Insert(T x) {
 			CNode<T>**p;
-			if (find(x, p))return false;
+			if (find(x, p))return 0;
 			CNode<T>*t = new CNode<T>(x);
 			t->m_next = *p;
 			*p = t;
-			return true;
+			return 1;
 		}
+
 		bool Remove(T x) {
 			CNode<T>**p;
-			cout << "remover" << endl;
-			if (find(x, p))return false;
-			cout << "pasa el if" << endl;
+			if (!find(x, p))return 0;
 			CNode<T>*temp = *p;
 			*p = temp->m_next;
 			delete temp;
-			return true;
+			return 1;
 		}
+
 		void Print(){
 			cout << "--> ";
 			CNode<T>**p;
@@ -64,19 +54,26 @@ class CList {
 			}
 			cout << " // "<<endl;
 		}
+
+		~CList() {
+			CNode<T> **p = &m_head;
+			CNode<T> *temp;
+			while (*p){
+				temp = *p;
+				*p = (*p)->m_next;
+				delete temp;
+			}
+		}
 	
 };
 
 int main() {
-	cout << "Ingrse un valor para inicializar la lista: ";
-	int tempo; cin >> tempo;
-	CList<int>test(tempo);
-	test.Print();
-	test.Insert(tempo);
-	test.Print();
-	test.Remove(tempo);
-	test.Print();
-	/*int hasta = 1;
+	int tempo;
+	int tempo2;
+	CNode<int> **p;
+	CList<int> List;
+
+	int hasta = 1;
 	while (hasta != 0) {
 		cout << "Desea : "<<endl;
 		cout << "1) Insertar" << endl;
@@ -87,14 +84,15 @@ int main() {
 		if (hasta == 1) {
 			cout << "Ingrese el numero que desea insertar: ";
 			cin >> tempo;
-			test->Insert(tempo);
+			List.Insert(tempo);
 		}
 		if (hasta == 2) {
 			cout << "Ingrese el numero que desea eliminar: ";
-			cin >> tempo;
-			test->Remove(tempo);
+			cin >> tempo2;
+			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
+			List.Remove(tempo2);
 		}
-		test->Print();
-	}*/
+		List.Print();
+	}
 	system("pause");
 }
