@@ -2,6 +2,16 @@
 using namespace std;
 
 template <class T>
+struct CLess {
+	bool operator ()(T a, T b) { return a < b; }
+};
+
+template <class T>
+struct CGreater {
+	bool operator ()(T a, T b) { return a > b; }
+};
+
+template <class T>
 struct CNode{
 	T data;
 	CNode<T> *m_next;
@@ -11,16 +21,21 @@ struct CNode{
 	}
 };
 
-template <class T>
+template <class T,class C>
 class CList {
 	public:
+		C m_cmp;
 		CNode<T> *m_head;
 		CList() { 
 			m_head = NULL;
 		}
 
 		bool find(T x, CNode<T>**& p) {
-			for(p = &m_head; (*p) && (*p)->data < x ; p=&(*p)->m_next){}
+			for (
+				p = &m_head; 
+				(*p) && m_cmp( (*p)->data, x);
+				p = &(*p)->m_next
+				);
 			return (*p) && (*p)->data == x;
 		}
 
@@ -69,7 +84,7 @@ class CList {
 int main() {
 	int tempo;
 	int tempo2;
-	CList<int> List;
+	CList<int,CLess<int>> List;
 
 	int hasta = 1;
 	while (hasta != 0) {
