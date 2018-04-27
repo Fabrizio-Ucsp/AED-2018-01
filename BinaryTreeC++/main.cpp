@@ -42,9 +42,53 @@ public:
 		*p = new CBinNode<T>(x);
 		return 1;
 	}
+	bool Remove(T x) {
+		CBinNode<T> **p;
+		if (!Find(x, p))return 0;
+		if ((*p)->nodes[0] && (*p)->nodes[1]) {
+			CBinNode<T> **q = HallaReemplazo(p);
+			(*p)->data = (*q)->data;
+			p = q;
+		}
+		CBinNode<T> *t = *p;
+		p = &((*p)->nodes[!((*p)->nodes[0])]);
+		delete t;
+	}
+	/*
+	void Print() {
+		cout << "Raiz" << endl;
+		CBinNode<T> **p;
+		CBinNode<T> **trucaso;
+		p = &root;
+		trucaso = &root;
+		if (*p == NULL) { cout << "Esta Vacio" << endl; }
+		else {
+			cout << (*p)->data << endl;
+			while( (*trucaso)->nodes[0] != NULL && (*trucaso)->nodes[0] != NULL ){
+				cout << "I  D" << endl;
+				p = &((*trucaso)->nodes[0]);
+				cout << (*p)->data << " ";
+
+				p = &((*trucaso)->nodes[1]);
+				cout << (*p)->data << endl;
+				trucaso = 
+			}
+		}
+	}*/
+	void InOrder(CBinNode<T>*p) {
+		if (!p)return;
+		InOrder(p->nodes[0]);
+		cout << p->data;
+		InOrder(p->nodes[1]);
+	}
 };
 
 int main() {
 	CBinTree<int, CLess<int>> Arbol;
-	Arbol.Insert(9);
+	Arbol.Print();
+	Arbol.Insert(15);
+	Arbol.Insert(10);
+	Arbol.Insert(17);
+	Arbol.Print();
+	system("pause");
 }
