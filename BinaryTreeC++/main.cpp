@@ -14,6 +14,7 @@ struct CGreater {
 template <class T>
 struct CBinNode{
 	T data;
+	T nivel;
 	CBinNode<T>*nodes[2];
 	CBinNode(T x) {
 		nodes[0] = nodes[1] = 0;
@@ -23,6 +24,9 @@ struct CBinNode{
 template <class T,class C>
 class CBinTree {
 public:
+	T tam;
+	T nivel_arbol;
+	T nivel_temporal;
 	CBinNode<T> *root;
 	C m_cmp;
 	CBinTree() {
@@ -30,17 +34,29 @@ public:
 	};
 	//~CBinTree();
 	bool Find(T x,CBinNode<T>**&p) {
-		for (p = &root ; 
-			*p && (*p)->data != x ; 
-			p = &((*p)->nodes[ m_cmp( (*p)->data, x )])
-			);
+		T tenporal=0;
+		for (p = &root; *p && (*p)->data != x; p = &((*p)->nodes[m_cmp((*p)->data, x)])) {
+			tenporal++;
+		}
+		nivel_temporal = tenporal;
+		if (tenporal>nivel_arbol) {
+			nivel_arbol = tenporal;
+		}
 		return *p != 0;
 	}
 	bool Insert(T x) {
 		CBinNode<T> **p;
 		if (Find(x, p))return 0;
 		*p = new CBinNode<T>(x);
+		(*p)->nivel = nivel_temporal;
+		tam++;
+		nivel_temporal = 0;
 		return 1;
+	}
+	CBinNode<T> ** HallaReemplazo(CBinNode<T>**&p) {
+		CBinNode<T>**tmp;
+		for (tmp = &(*p)->nodes[0]; (*tmp)->nodes[1] != NULL; tmp = &(*tmp)->nodes[1]);
+		return tmp;
 	}
 	bool Remove(T x) {
 		CBinNode<T> **p;
@@ -51,44 +67,59 @@ public:
 			p = q;
 		}
 		CBinNode<T> *t = *p;
-		p = &((*p)->nodes[!((*p)->nodes[0])]);
+		*p = ((*p)->nodes[!((*p)->nodes[0])]);
 		delete t;
 	}
-	/*
-	void Print() {
-		cout << "Raiz" << endl;
-		CBinNode<T> **p;
-		CBinNode<T> **trucaso;
-		p = &root;
-		trucaso = &root;
-		if (*p == NULL) { cout << "Esta Vacio" << endl; }
-		else {
-			cout << (*p)->data << endl;
-			while( (*trucaso)->nodes[0] != NULL && (*trucaso)->nodes[0] != NULL ){
-				cout << "I  D" << endl;
-				p = &((*trucaso)->nodes[0]);
-				cout << (*p)->data << " ";
-
-				p = &((*trucaso)->nodes[1]);
-				cout << (*p)->data << endl;
-				trucaso = 
-			}
-		}
-	}*/
-	void InOrder(CBinNode<T>*p) {
+	
+	void InOrder(CBinNode<T>*p,int var) {	
 		if (!p)return;
-		InOrder(p->nodes[0]);
-		cout << p->data;
-		InOrder(p->nodes[1]);
+		InOrder(p->nodes[0],var);
+		if (p->nivel == var) {
+			cout << p->data << " ";
+		}
+		InOrder(p->nodes[1],var);
+	}
+
+	void PrintTree() {
+		for (int i = 0; i < nivel_arbol+1; i++) {
+			CBinNode<T>*p;
+			p = root;
+			InOrder(p,i);
+			cout << " " << endl;
+		}
+		cout << "Numero de valores en el arbol: " << tam << endl;
+		cout << "Niveles que posee el arbol: " << nivel_arbol+1 << endl;
 	}
 };
 
 int main() {
 	CBinTree<int, CLess<int>> Arbol;
-	Arbol.Print();
-	Arbol.Insert(15);
-	Arbol.Insert(10);
-	Arbol.Insert(17);
-	Arbol.Print();
+	int tempo;
+	int tempo2;;
+	int hasta = 1;
+	while (hasta != 0) {
+		cout << "Desea : " << endl;
+		cout << "1) Insertar" << endl;
+		cout << "2) Eliminar" << endl;
+		cout << "0) Terminar" << endl;
+		cout << "Ingrese el numero de opcion" << endl;
+		cin >> hasta;
+		if (hasta == 1) {
+			cout << "Ingrese el numero que desea insertar: ";
+			cin >> tempo;
+			Arbol.Insert(tempo);
+		}
+		if (hasta == 2) {
+			cout << "Ingrese el numero que desea eliminar: ";
+			cin >> tempo2;
+			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
+			Arbol.Remove(tempo2);
+		}
+		if (hasta == 0) {
+			break;
+		}
+		Arbol.PrintTree();
+	}
+	cout << " " << endl;
 	system("pause");
 }
