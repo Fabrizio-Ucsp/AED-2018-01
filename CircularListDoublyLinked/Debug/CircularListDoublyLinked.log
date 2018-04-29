@@ -1,3 +1,9 @@
 ﻿  main.cpp
-c:\users\user\documents\github\aed-2018-01\circularlistdoublylinked\main.cpp(161): warning C4101: 'tempo2': variable local sin referencia
-  CircularListDoublyLinked.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\CircularListDoublyLinked\Debug\CircularListDoublyLinked.exe
+c:\users\user\documents\github\aed-2018-01\circularlistdoublylinked\main.cpp(47): error C2661: 'Node<T>::Node': ninguna función sobrecargada acepta 2 argumentos
+          with
+          [
+              T=int
+          ]
+  c:\users\user\documents\github\aed-2018-01\circularlistdoublylinked\main.cpp(36): note: durante la compilación de la función miembro de plantilla clase de 'void CList<int>::Insert(int)'
+  c:\users\user\documents\github\aed-2018-01\circularlistdoublylinked\main.cpp(157): note: vea la referencia a la creación de instancias de plantilla de función 'void CList<int>::Insert(int)' que se está compilando
+  c:\users\user\documents\github\aed-2018-01\circularlistdoublylinked\main.cpp(143): note: vea la referencia a la creación de instancias de plantilla clase de 'CList<int>' que se está compilando

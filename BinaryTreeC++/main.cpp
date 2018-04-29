@@ -6,6 +6,7 @@ struct CLess{
 	bool operator ()(T a, T b) { return a < b; }
 };
 
+
 template <class T>
 struct CGreater {
 	bool operator ()(T a, T b) { return a > b; }
