@@ -39,6 +39,10 @@ public:
 		if (isEmpty()) {
 			Node<T> *tmp2 = new Node<T>(info);
 			head = tmp2;
+			head->next = tail;
+			head->prev = tail;
+			tail->next = head;
+			tail->prev = head;	
 		}
 		else {
 			cout << "No esta vacio y pasa a evaluar" << endl;
