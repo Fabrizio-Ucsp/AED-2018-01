@@ -27,11 +27,10 @@ public:
 	Node<T> *tail;
 	CList() {
 		head = NULL;
-		tail = NULL;
 	}
 
 	int isEmpty() {
-		return head == NULL && tail == NULL;
+		return head == NULL;
 	}
 	void Insert(int info) {
 		Node<T> *tmp;
@@ -39,18 +38,17 @@ public:
 		if (isEmpty()) {
 			Node<T> *tmp2 = new Node<T>(info);
 			head = tmp2;
-			head->next = tail;
-			head->prev = tail;
-			tail->next = head;
-			tail->prev = head;	
+			head->next = head;
+			head->prev = head;	
 		}
 		else {
 			cout << "No esta vacio y pasa a evaluar" << endl;
 			if (info < tmp->data && info != tmp->data) {
 				cout << "info es menor a la cabeza:" << endl;
 				Node<T> *tmp3 = new Node<T>(info);
+				tmp3->next = head;
+				tmp3->prev = tmp3;
 				head = tmp3;
-				head->next = tmp2;
 			}
 			else {
 				//cout << "info es mayor a la cabeza:" << endl;
