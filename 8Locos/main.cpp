@@ -17,10 +17,21 @@ class Jugador{
 public:
 	int score;
 	ListaDeCartas Mano;
-	void CojerCarta() {
-		
+	void CojerCarta(ListaDeLaBaraja Baraja) {
+		char palotemporal=Baraka.head.palo;
+		char numeroTemporal= Baraka.head.numero;
+		int idTemporal= Baraka.head.id;
+		Carta Tempo(palotemporal, numeroTemporal, idTemporal);
+		Mano.Insert( );
+
 	}
-	void PonerCarta() { }
+	void PonerCarta(int posicion) {
+		Carta **p;
+		p = ListaDeCartas.head;
+		for (int i = 0; i < posicion; i++) {
+			p = &(*p)->next;
+		}
+	}
 	int CalcularScore() { }
 };
 
