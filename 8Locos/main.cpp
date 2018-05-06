@@ -16,7 +16,12 @@ public:
 class Jugador{
 public:
 	int score;
-	//Lista Enlazada de Cartas
+	ListaDeCartas Mano;
+	void CojerCarta() {
+		
+	}
+	void PonerCarta() { }
+	int CalcularScore() { }
 };
 
 int main() {
