@@ -1,49 +1,43 @@
-#include<iostream>
-using namespace std;
+#include "game.h"
 
-class Carta{
-public:
-	int id;
-	char palo;
-	char numero;
-	Carta *next;
-	Carta(char _palo, char _numero, int _id) {
-		palo = _palo;
-		id = _id;
-		numero = _numero;
-	};
-};
-class Jugador{
-public:
-	int score;
-	ListaDeCartas Mano;
-	void CojerCarta(ListaDeLaBaraja Baraja) {
-		char palotemporal=Baraka.head.palo;
-		char numeroTemporal= Baraka.head.numero;
-		int idTemporal= Baraka.head.id;
-		Carta Tempo(palotemporal, numeroTemporal, idTemporal);
-		Mano.Insert( );
+void iniciar_cartas(){
+	Cards_List<int> List;
+	cout << "Inicio" << endl;
+	List.CrearCartas();
+	List.Print();
+	cout << "Primera impresion" << endl;
+	List.Barajear();
+	List.Barajear();
+	List.Print();
+	List.Print_palo("Corazon");
+	List.Print_palo("Espada");
+	List.Print_palo("Coco");
+	List.Print_palo("Trebol");
+	cout << "Fin" << endl;
+}
 
-	}
-	void PonerCarta(int posicion) {
-		Carta **p;
-		p = ListaDeCartas.head;
-		for (int i = 0; i < posicion; i++) {
-			p = &(*p)->next;
-		}
-	}
-	int CalcularScore() { }
-};
+void mostrar_reglas() {
+	cout << "Estas son las reglas" << endl;
 
-int main() {
-	cout << "Ingrese el Numero de Jugadores: ";
-	int NumeroDeJugadores;
-	cin >> NumeroDeJugadores;
-	while (NumeroDeJugadores<2) {
-		cout << "El numero de jugadores tiene que ser minimo de 2 jugadores" << endl;
-		cout << "Ingrese el Numero de Jugadores: ";
-		cin >> NumeroDeJugadores;
+}
+int main(){
+	Game<int> Juego;
+	int menu_item = 1;
+
+	while (menu_item !=0) {
+		cout << "Presione 1 para iniciar el juego" << endl;
+		cout << "Presion 2 para mostrar las reglas del juego" << endl;
+		cout << "Presione 0 para salir" << endl;
+		cin >> menu_item;
+		if (menu_item == 1) Juego.init_game();
+		if (menu_item == 2) mostrar_reglas();
 	}
-	system("pause");
+
+	
+
+
+
+	char end;
+	cin >> end;
 	return 0;
 }
