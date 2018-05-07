@@ -100,7 +100,12 @@ inline void Game<T>::iniciar_ronda(){
 	while (condicion_ganar != true) {
 	
 		while (pasar_ronda != true) {
-	
+			if (iterador_ronda->mazo_mano.m_head == nullptr) {
+				cout << "¡¡¡¡¡USTED GANOO :D !!!! " << endl;
+				condicion_ronda = true;
+				pasar_ronda = true;
+				continue;
+			}
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();
 
