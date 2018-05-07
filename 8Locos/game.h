@@ -123,8 +123,10 @@ inline void Game<T>::iniciar_ronda(){
 						cout << "Ingrese la id de la carta a dar:";
 						cin >> id_a_dar; cout << endl;
 						Card_Node<T> **temp;
-						iterador_ronda->mazo_mano.find(id_a_dar, temp);
-
+						if (!iterador_ronda->mazo_mano.find(id_a_dar, temp)) {
+							cout << endl << "ID invalida" << endl;
+							continue;
+						}
 						if ((*temp)->numero == 8) {
 							cout << endl << "¡Tienes un comodin!" << endl;
 							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
@@ -155,7 +157,12 @@ inline void Game<T>::iniciar_ronda(){
 			condicion_dar=false;
 
 			if (condicion_ronda == 2) {
-				
+				if (!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo))
+					cout << "Usted tiene cartas que puede jugar, ¡no sea tramposo!" << endl;
+				else {
+					iterador_ronda->mazo_mano.Insert(mazo.m_head->id, mazo.m_head->numero, mazo.m_head->palo);
+					mazo.Remove(mazo.m_head->id);
+				}
 			}
 		}
 
