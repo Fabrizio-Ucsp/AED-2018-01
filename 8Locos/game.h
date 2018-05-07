@@ -137,10 +137,11 @@ inline void Game<T>::iniciar_ronda(){
 							cout << endl;
 
 							cout << "Ingresa la id de cualquier carta: "; cin >> id_a_dar;
-							iterador_ronda->mazo_mano.find(id_a_dar, temp);
+							iterador_ronda->mazo_mano.find(id_a_dar, temp);	
 							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
 							iterador_ronda->mazo_mano.Remove(id_a_dar);
 							condicion_dar = true;
+							continue;
 						}
 
 						if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
