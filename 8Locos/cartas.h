@@ -5,8 +5,6 @@
 #include<time.h>
 using namespace std;
 
-
-
 template <class T>
 struct Card_Node {
 	T id;
@@ -27,7 +25,8 @@ public:
 	Card_Node<T> *m_head;
 	Card_Node<T> *tail;
 	Cards_List() {
-		m_head =tail= nullptr;
+		m_head = NULL;
+		tail= NULL;
 	}
 
 	bool find(T _id, Card_Node<T>**& p) {
