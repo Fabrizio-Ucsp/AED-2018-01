@@ -1,6 +1,6 @@
 ﻿  main.cpp
-c:\users\fabrizio\documents\github\aed-2018-01\8locos\cartas.h(101): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-  c:\users\fabrizio\documents\github\aed-2018-01\8locos\cartas.h(96): note: durante la compilación de la función miembro de plantilla clase de 'void Cards_List<int>::Barajear(void)'
+c:\users\fabrizio\documents\github\aed-2018-01\8locos\cartas.h(100): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  c:\users\fabrizio\documents\github\aed-2018-01\8locos\cartas.h(95): note: durante la compilación de la función miembro de plantilla clase de 'void Cards_List<int>::Barajear(void)'
   c:\users\fabrizio\documents\github\aed-2018-01\8locos\main.cpp(8): note: vea la referencia a la creación de instancias de plantilla de función 'void Cards_List<int>::Barajear(void)' que se está compilando
   c:\users\fabrizio\documents\github\aed-2018-01\8locos\main.cpp(3): note: vea la referencia a la creación de instancias de plantilla clase de 'Cards_List<int>' que se está compilando
 c:\users\fabrizio\documents\github\aed-2018-01\8locos\circular_jugador.h(37): warning C4101: 'temp': variable local sin referencia

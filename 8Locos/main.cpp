@@ -19,7 +19,7 @@ void mostrar_reglas() {
 	system("cls");
 	cout << "Estas son las reglas: " << endl;
 	cout << "Si quieres deshacerte de una carta en tu mano" << endl;
-	cout << "debes emparejarla con la clasificación(4, 10, K, A…) o el palo(trebol, coco, corazon, espada)" << endl;
+	cout << "debes emparejarla con la clasificacion(4, 10, K, A…) o el palo(trebol, coco, corazon, espada)" << endl;
 	cout << "de otra carta en la pila.Debes colocar la carta en la parte superior de la " << endl;
 	cout << "pila de descarte y luego le tocará el turno al jugador a tu izquierda." << endl;
 	cout << "En este juego, las cartas con número 8 son los comodines,se puede colocar en cualquier situacion." << endl;
