@@ -25,8 +25,9 @@ template <class T>
 class Cards_List {
 public:
 	Card_Node<T> *m_head;
+	Card_Node<T> *tail;
 	Cards_List() {
-		m_head = nullptr;
+		m_head =tail= nullptr;
 	}
 
 	bool find(T _id, Card_Node<T>**& p) {
@@ -59,8 +60,9 @@ public:
 	void Print() {
 		Card_Node<T>**p;
 		p = &m_head;
+		cout << " --> ";
 		while (*p != nullptr) {
-			cout << (*p)->numero << " ---  " << (*p)->palo << endl;
+			cout <<" ID:("<<(*p)->id<<") --- "<<(*p)->numero << " ---  " << (*p)->palo << endl;
 			p = &(*p)->m_next;
 			cout << " --> ";
 		}
