@@ -10,11 +10,31 @@ public:
 	T id;
 	string nombre; 
 	Cards_List<T> mazo_mano;
+	int Puntuacion=0;
 	Player_Node<T> *nodes[2];
 	Player_Node(T _id,string _nombre) {
 		id = _id;
 		nombre = _nombre;
 		nodes[0] = nodes[1] = nullptr;
+	}
+	void CalcularPuntaje() {
+		Card_Node<T>**p;
+		p = &mazo_mano.m_head;
+		while (*p != nullptr) {
+			if ((*p)->numero>10) {
+				Puntuacion = Puntuacion + 10;
+			}
+			else {
+				if ((*p)->numero==8) {
+					Puntuacion = Puntuacion + 50;
+				}
+				else {
+					Puntuacion = Puntuacion + (*p)->numero;
+				}
+			}
+			p = &(*p)->m_next;
+		}
+		cout << " Puntuacion de la mano actual : " << Puntuacion << endl;
 	}
 };
 

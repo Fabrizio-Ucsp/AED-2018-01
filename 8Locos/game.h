@@ -51,6 +51,7 @@ void Game<T>::init_players() {
 		}
 		repartir_cartas(8,num_players);
 	}
+	system("cls");
 }
 
 
@@ -92,16 +93,14 @@ inline void Game<T>::iniciar_ronda(){
 	while (mazo.m_head->numero== 8) mazo.Barajear();
 	pila_descarte.Insert(id_temp, mazo.m_head->numero, mazo.m_head->palo); id_temp--;
 	mazo.Remove(mazo.m_head->id);
+	mazo.PrintNumeroDeCartas();
 	bool condicion_ganar = false;
 	bool pasar_ronda = false;
 	int condicion_ronda = 1;
 	int condicion_seguir = 0;
 	bool condicion_dar = 0;	
 	while (condicion_ganar != true) {
-	
 		while (pasar_ronda != true) {
-			
-
 			if (mazo.m_head == nullptr) {
 				cout << endl << "Se terminaron las cartas D:" << endl;
 				cout << endl << "DEFINICION POR PUNTOS" << endl;
@@ -113,12 +112,11 @@ inline void Game<T>::iniciar_ronda(){
 				condicion_ganar = true;
 				break; break;
 			}
-			cout << endl << "____________________________INICIO_________________________________" << endl;
+			cout << endl << "____________________________8LOCOS_________________________________" << endl;
+			mazo.PrintNumeroDeCartas();
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();
-
-
-			cout << endl << "<------Pila de descarte----->";
+			cout << endl << "<------Pila de Juego----->";
 			cout << " --> " << pila_descarte.m_head->numero << " --> " << pila_descarte.m_head->palo << endl;
 			cout << "<------------------------------------------------------->" << endl;
 
@@ -129,6 +127,8 @@ inline void Game<T>::iniciar_ronda(){
 			if (condicion_ronda == 1) {
 				if (verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) {
 					cout << "Usted no tiene ninguna carta para dar" << endl;
+					system("pause");
+					system("cls");
 				}
 				else {
 					while (condicion_dar != true) {
@@ -141,7 +141,9 @@ inline void Game<T>::iniciar_ronda(){
 							continue;
 						}
 						if ((*temp)->numero == 8) {
-							cout << endl << "¡Tienes un comodin!" << endl;
+							cout << endl << "¡Tienes un comodin!Puedes colocar una carta otravez" << endl;
+							system("pause");
+							system("cls");
 							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
 							iterador_ronda->mazo_mano.Remove(id_a_dar);
 
@@ -172,11 +174,17 @@ inline void Game<T>::iniciar_ronda(){
 			condicion_dar=false;
 
 			if (condicion_ronda == 2) {
-				if (!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo))
+				if (!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) {
 					cout << "Usted tiene cartas que puede jugar, ¡no sea tramposo!" << endl;
+					system("pause");
+					system("cls");
+				}
 				else {
 					iterador_ronda->mazo_mano.Insert(mazo.m_head->id, mazo.m_head->numero, mazo.m_head->palo);
 					mazo.Remove(mazo.m_head->id);
+					cout << "Usted ha cojido una carta de la baraja" << endl;
+					system("pause");
+					system("cls");
 				}
 			}
 			if (iterador_ronda->mazo_mano.m_head == nullptr) {
@@ -186,13 +194,16 @@ inline void Game<T>::iniciar_ronda(){
 				condicion_ganar = true;
 				break; break;
 			}
-			cout << endl << "____________________________FIN_________________________________" << endl;
+			cout << endl << "____________________________Fin Del Turno_________________________________" << endl;
+			system("pause");
+			system("cls");
 		}
 
 		iterador_ronda = iterador_ronda->nodes[direccion_juego];
 		pasar_ronda = false;
-		cout << endl << "seguir?" << endl;
+		cout << endl << "seguir? ingrese 1 porfavor" << endl;
 		cin >> condicion_seguir;
+		system("cls");
 	}
 	cout << "EL jugador " << iterador_ronda->nombre << " gano!!!" << endl;
 	cout << endl << "---------------FIN DEL JUEGO----------------------------" << endl;

@@ -24,6 +24,7 @@ class Cards_List {
 public:
 	Card_Node<T> *m_head;
 	Card_Node<T> *tail;
+	int NumeroDeCartasEnLaLista=0;
 	Cards_List() {
 		m_head = NULL;
 		tail= NULL;
@@ -44,6 +45,7 @@ public:
 		Card_Node<T>*t = new Card_Node<T>(_id,_numero,_palo);
 		t->m_next = *p;
 		*p = t;
+		NumeroDeCartasEnLaLista++;
 		return 1;
 	}
 
@@ -53,6 +55,7 @@ public:
 		Card_Node<T>*temp = *p;
 		*p = temp->m_next;
 		delete temp;
+		NumeroDeCartasEnLaLista--;
 		return 1;
 	}
 
@@ -110,6 +113,10 @@ public:
 			(*p)->palo = temp_palo;
 		}
 
+	}
+
+	void PrintNumeroDeCartas() {
+		cout << "Numero de Cartas : " <<NumeroDeCartasEnLaLista<< endl;
 	}
 
 	~Cards_List() {
