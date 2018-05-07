@@ -166,13 +166,12 @@ inline void Game<T>::iniciar_ronda(){
 					mazo.Remove(mazo.m_head->id);
 				}
 			}
-		
 		}
 		iterador_ronda = iterador_ronda->nodes[direccion_juego];
 		pasar_ronda = false;
 		cout << endl << "seguir?" << endl;
 		cin >> condicion_seguir;
 	}
-	
+	iterador_ronda = iterador_ronda->nodes[direccion_juego];
 	
 }
