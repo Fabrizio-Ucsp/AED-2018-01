@@ -4,9 +4,6 @@
 #include<stdlib.h>
 #include<time.h>
 using namespace std;
-
-
-
 template <class T>
 struct Card_Node {
 	T id;
@@ -28,7 +25,6 @@ public:
 	Cards_List() {
 		m_head = nullptr;
 	}
-
 	bool find(T _id, Card_Node<T>**& p) {
 		for (
 			p = &m_head;
@@ -37,7 +33,6 @@ public:
 			);
 			return (*p) && (*p)->id == _id;
 	}
-
 	bool Insert(T _id,int _numero,string _palo) {
 		Card_Node<T>**p;
 		if (find(_id, p))return 0;
@@ -46,7 +41,6 @@ public:
 		*p = t;
 		return 1;
 	}
-
 	bool Remove(T _id) {
 		Card_Node<T>**p;
 		if (!find(_id, p))return 0;
@@ -55,16 +49,14 @@ public:
 		delete temp;
 		return 1;
 	}
-
 	void Print() {
 		Card_Node<T>**p;
 		p = &m_head;
 		while (*p != nullptr) {
-			cout << (*p)->numero << " ---  " << (*p)->palo << endl;
+			cout << (*p)->numero << " - " << (*p)->palo << endl;
 			p = &(*p)->m_next;
-			cout << " --> ";
 		}
-		cout << " // " << endl;
+		cout << " Fin de la Lista de Cartas " << endl;
 	}
 	void Print_palo(string _palo) {
 		Card_Node<T>**p;

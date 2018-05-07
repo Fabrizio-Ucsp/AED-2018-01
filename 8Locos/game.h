@@ -53,9 +53,7 @@ void Game<T>::init_players() {
 template<class T>
 inline void Game<T>::repartir_cartas(int cantidad,int num_players) {
 	Player_Node<T> *temp;
-
 	for (int j = 0; j < cantidad; j++) {
-		
 		for (int i = 1; i <= num_players; i++) {
 			temp = Jugadores->get_player(i);
 			temp->mazo_mano.Insert(mazo.m_head->id, mazo.m_head->numero, mazo.m_head->palo);
