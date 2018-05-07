@@ -100,20 +100,12 @@ inline void Game<T>::iniciar_ronda(){
 	while (condicion_ganar != true) {
 	
 		while (pasar_ronda != true) {
-			
-
-			if (mazo.m_head == nullptr) {
-				cout << endl << "Se terminaron las cartas D:" << endl;
-				cout << endl << "DEFINICION POR PUNTOS" << endl;
-				cout << endl << "EL SUEÑO ME GANA(AREA EN DESARROLLO)" << endl;
-				cout << endl << "GANO THANOS" << endl;
-				cout << endl << "SEÑOR STARK :'v no me quiero ir" << endl;
+			if (iterador_ronda->mazo_mano.m_head == nullptr) {
+				cout << "¡¡¡¡¡USTED GANOO :D !!!! " << endl;
 				condicion_ronda = true;
 				pasar_ronda = true;
-				condicion_ganar = true;
-				break; break;
+				continue;
 			}
-			cout << endl << "____________________________INICIO_________________________________" << endl;
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();
 
@@ -179,22 +171,12 @@ inline void Game<T>::iniciar_ronda(){
 					mazo.Remove(mazo.m_head->id);
 				}
 			}
-			if (iterador_ronda->mazo_mano.m_head == nullptr) {
-				cout << "¡¡¡¡¡USTED GANOO :D !!!! " << endl;
-				condicion_ronda = true;
-				pasar_ronda = true;
-				condicion_ganar = true;
-				break; break;
-			}
-			cout << endl << "____________________________FIN_________________________________" << endl;
 		}
-
 		iterador_ronda = iterador_ronda->nodes[direccion_juego];
 		pasar_ronda = false;
 		cout << endl << "seguir?" << endl;
 		cin >> condicion_seguir;
 	}
-	cout << "EL jugador " << iterador_ronda->nombre << " gano!!!" << endl;
-	cout << endl << "---------------FIN DEL JUEGO----------------------------" << endl;
+	iterador_ronda = iterador_ronda->nodes[direccion_juego];
 	
 }
