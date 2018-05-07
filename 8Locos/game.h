@@ -124,13 +124,7 @@ inline void Game<T>::iniciar_ronda(){
 						cin >> id_a_dar; cout << endl;
 						Card_Node<T> **temp;
 						iterador_ronda->mazo_mano.find(id_a_dar, temp);
-						if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
-							
-								pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
-								iterador_ronda->mazo_mano.Remove(id_a_dar);
-								condicion_dar = true;
-					
-						}
+
 						if ((*temp)->numero == 8) {
 							cout << endl << "¡Tienes un comodin!" << endl;
 							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
@@ -146,6 +140,15 @@ inline void Game<T>::iniciar_ronda(){
 							iterador_ronda->mazo_mano.Remove(id_a_dar);
 							condicion_dar = true;
 						}
+
+						if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
+							
+								pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
+								iterador_ronda->mazo_mano.Remove(id_a_dar);
+								condicion_dar = true;
+					
+						}
+						
 					}
 				}
 			}
