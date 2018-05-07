@@ -141,14 +141,15 @@ inline void Game<T>::iniciar_ronda(){
 							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
 							iterador_ronda->mazo_mano.Remove(id_a_dar);
 							condicion_dar = true;
+							pasar_ronda = true;
 							continue;
 						}
 
 						if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
-							
 								pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
 								iterador_ronda->mazo_mano.Remove(id_a_dar);
 								condicion_dar = true;
+								pasar_ronda = true;
 					
 						}
 						
@@ -165,13 +166,13 @@ inline void Game<T>::iniciar_ronda(){
 					mazo.Remove(mazo.m_head->id);
 				}
 			}
-		}
-
-
 		
+		}
+		iterador_ronda = iterador_ronda->nodes[direccion_juego];
+		pasar_ronda = false;
 		cout << endl << "seguir?" << endl;
-			
 		cin >> condicion_seguir;
 	}
-	iterador_ronda = iterador_ronda->nodes[direccion_juego];
+	
+	
 }
