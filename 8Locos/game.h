@@ -128,6 +128,7 @@ inline void Game<T>::iniciar_ronda(){
 				cout << "Nadie alcanzo la meta : " << meta << endl;
 				cout << "Se Vuelve a crear la baraja y repartir las manos" << endl;
 
+				mazo.CrearCartas();
 				id_temp = 52;
 				while (mazo.m_head->numero == 8) mazo.Barajear();
 				pila_descarte.Insert(id_temp, mazo.m_head->numero, mazo.m_head->palo); id_temp--;
@@ -137,14 +138,14 @@ inline void Game<T>::iniciar_ronda(){
 				cout << "A empezar denuevo :D pero eso si se mantienen los puntajes ;)" << endl;
 				condicion_ronda = true;
 				pasar_ronda = true;
-				condicion_ganar = true;
-				break; break;
 			}
 			cout << endl << "____________________________8LOCOS_________________________________" << endl;
+			
 			cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
 			mazo.PrintNumeroDeCartas();
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();
+			cout << "Puntuacion: " << iterador_ronda->Puntuacion << endl;
 			cout << endl << "<------Pila de Juego----->";
 			cout << " --> " << pila_descarte.m_head->numero << " --> " << pila_descarte.m_head->palo << endl;
 			cout << "<------------------------------------------------------->" << endl;
@@ -203,7 +204,7 @@ inline void Game<T>::iniciar_ronda(){
 			condicion_dar=false;
 
 			if (condicion_ronda == 2) {
-				if (!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) {
+				if (/*!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)*/false) { //cambiar aca para que puedas sacar con o sin restriccion
 					cout << "Usted tiene cartas que puede jugar, ¡no sea tramposo!" << endl;
 					system("pause");
 					system("cls");
