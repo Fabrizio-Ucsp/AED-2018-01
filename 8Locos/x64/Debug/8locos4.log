@@ -9,19 +9,19 @@ c:\users\user\documents\github\aed-2018-01\8locos\circular_jugador.h(57): warnin
           [
               T=int
           ]
-  c:\users\user\documents\github\aed-2018-01\8locos\game.h(43): note: vea la referencia a la creación de instancias de plantilla de función 'void Player_List<T>::Insert_Player(int,std::string)' que se está compilando
+  c:\users\user\documents\github\aed-2018-01\8locos\game.h(45): note: vea la referencia a la creación de instancias de plantilla de función 'void Player_List<T>::Insert_Player(int,std::string)' que se está compilando
           with
           [
               T=int
           ]
-  c:\users\user\documents\github\aed-2018-01\8locos\game.h(40): note: vea la referencia a la creación de instancias de plantilla clase de 'Player_List<T>' que se está compilando
+  c:\users\user\documents\github\aed-2018-01\8locos\game.h(42): note: vea la referencia a la creación de instancias de plantilla clase de 'Player_List<T>' que se está compilando
           with
           [
               T=int
           ]
-  c:\users\user\documents\github\aed-2018-01\8locos\game.h(33): note: durante la compilación de la función miembro de plantilla clase de 'void Game<int>::init_players(void)'
-  c:\users\user\documents\github\aed-2018-01\8locos\game.h(28): note: vea la referencia a la creación de instancias de plantilla de función 'void Game<int>::init_players(void)' que se está compilando
-  c:\users\user\documents\github\aed-2018-01\8locos\game.h(20): note: durante la compilación de la función miembro de plantilla clase de 'Game<int>::Game(void)'
+  c:\users\user\documents\github\aed-2018-01\8locos\game.h(34): note: durante la compilación de la función miembro de plantilla clase de 'void Game<int>::init_players(void)'
+  c:\users\user\documents\github\aed-2018-01\8locos\game.h(29): note: vea la referencia a la creación de instancias de plantilla de función 'void Game<int>::init_players(void)' que se está compilando
+  c:\users\user\documents\github\aed-2018-01\8locos\game.h(21): note: durante la compilación de la función miembro de plantilla clase de 'Game<int>::Game(void)'
   c:\users\user\documents\github\aed-2018-01\8locos\main.cpp(44): note: vea la referencia a la creación de instancias de plantilla de función 'Game<int>::Game(void)' que se está compilando
   c:\users\user\documents\github\aed-2018-01\8locos\main.cpp(44): note: vea la referencia a la creación de instancias de plantilla clase de 'Game<int>' que se está compilando
   8locos4.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\8Locos\x64\Debug\8locos4.exe

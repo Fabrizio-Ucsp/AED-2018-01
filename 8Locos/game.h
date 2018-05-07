@@ -4,6 +4,7 @@
 template <class T>
 class Game {
 public:
+	int NumeroDeJugadores;
 	Player_List<T> *Jugadores;
 	Cards_List<T> mazo;
 	Cards_List<T> pila_descarte;
@@ -35,6 +36,7 @@ void Game<T>::init_players() {
 	string _nombre;
 	cout << "Ingrese el numero de jugadores(Minimo 2 y Maximo 4):" << endl;
 	cin >> num_players;
+	NumeroDeJugadores = num_players;
 	cout << endl;
 	cout << "Ingrese el nombre del primer jugador: "; cin >> _nombre;
 	Jugadores = new Player_List<T>(1, _nombre);
@@ -87,7 +89,6 @@ inline bool Game<T>::verificar_cartas(int _id,int _numero, string _palo) {
 template<class T>
 inline void Game<T>::iniciar_ronda(){
 	int id_temp = 52;
-	
 	Player_Node<T> *iterador_ronda=Jugadores->player_init;
 	//si la primera carta es 8
 	while (mazo.m_head->numero== 8) mazo.Barajear();
@@ -99,20 +100,48 @@ inline void Game<T>::iniciar_ronda(){
 	int condicion_ronda = 1;
 	int condicion_seguir = 0;
 	bool condicion_dar = 0;	
+	int meta;
+	if (NumeroDeJugadores == 2) {
+		meta = 100;
+	}
+	if (NumeroDeJugadores == 3) {
+		meta = 150;
+	}
+	if (NumeroDeJugadores == 4) {
+		meta = 200;
+	}
 	while (condicion_ganar != true) {
 		while (pasar_ronda != true) {
 			if (mazo.m_head == nullptr) {
 				cout << endl << "Se terminaron las cartas D:" << endl;
-				cout << endl << "DEFINICION POR PUNTOS" << endl;
-				cout << endl << "EL SUEÑO ME GANA(AREA EN DESARROLLO)" << endl;
-				cout << endl << "GANO THANOS" << endl;
-				cout << endl << "SEÑOR STARK :'v no me quiero ir" << endl;
+				cout << "Calcular Los Puntajes de los jugadores" << endl;
+				cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
+				Player_Node<T> *iter = Jugadores->player_init;
+				for (int i = 0; i < NumeroDeJugadores; i++) {
+					cout << "NombreDelJugador: " << iter->nombre << endl;
+					iter->CalcularPuntaje();
+					if (iter->Puntuacion >= meta) {
+						cout << "Gano el jugador : " << iter->nombre << " por llegar o pasar la meta: " << meta << endl;
+					}
+					iter = iter->nodes[direccion_juego];
+				}
+				cout << "Nadie alcanzo la meta : " << meta << endl;
+				cout << "Se Vuelve a crear la baraja y repartir las manos" << endl;
+
+				id_temp = 52;
+				while (mazo.m_head->numero == 8) mazo.Barajear();
+				pila_descarte.Insert(id_temp, mazo.m_head->numero, mazo.m_head->palo); id_temp--;
+				mazo.Remove(mazo.m_head->id);
+				mazo.PrintNumeroDeCartas();
+
+				cout << "A empezar denuevo :D pero eso si se mantienen los puntajes ;)" << endl;
 				condicion_ronda = true;
 				pasar_ronda = true;
 				condicion_ganar = true;
 				break; break;
 			}
 			cout << endl << "____________________________8LOCOS_________________________________" << endl;
+			cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
 			mazo.PrintNumeroDeCartas();
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();

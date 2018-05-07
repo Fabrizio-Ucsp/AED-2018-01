@@ -45,6 +45,13 @@ int main(){
 	int menu_item = 1;
 
 	while (menu_item != 0) {
+		cout << "  _____   ___      _______  _______  _______  _______" << endl;
+		cout << " |  _  | |   |    |       ||       ||       ||       |" << endl;
+		cout << " | |_| | |   |    |   _   ||       ||   _   ||  _____|" << endl;
+		cout << "|   _   ||   |    |  | |  ||       ||  | |  || |_____" << endl;
+		cout << "|  | |  ||   |___ |  |_|  ||      _||  |_|  ||_____  |" << endl;
+		cout << "|  |_|  ||       ||       ||     |_ |       | _____| |" << endl;
+		cout << "|_______||_______||_______||_______||_______||_______|" << endl;
 		cout << "Presione 1 para iniciar el juego" << endl;
 		cout << "Presion 2 para mostrar las reglas del juego" << endl;
 		cout << "Presione 0 para salir" << endl;
