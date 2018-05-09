@@ -14,7 +14,9 @@ public:
 	void init_players();
 	void repartir_cartas(int cantidad, int num_players);
 	bool verificar_cartas(int _id,int _numero, string _palo);
+	bool dar_puntajes();
 	void iniciar_ronda();
+	
 };
 
 template<class T>
@@ -86,6 +88,52 @@ inline bool Game<T>::verificar_cartas(int _id,int _numero, string _palo) {
 
 
 }
+
+template<class T>
+inline bool Game<T>::dar_puntajes(){
+
+	int meta;
+	if (NumeroDeJugadores == 2) {
+		meta = 100;
+	}
+	if (NumeroDeJugadores == 3) {
+		meta = 150;
+	}
+	if (NumeroDeJugadores == 4) {
+		meta = 200;
+	}
+
+	cout << endl << "Se terminaron las cartas D:" << endl;
+	cout << "Calcular Los Puntajes de los jugadores" << endl;
+	cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
+	Player_Node<T> *iter = Jugadores->player_init;
+	for (int i = 0; i < NumeroDeJugadores; i++) {
+		cout << "NombreDelJugador: " << iter->nombre << endl;
+		iter->CalcularPuntaje();
+		if (iter->Puntuacion >= meta) {
+			cout << "Gano el jugador : " << iter->nombre << " por llegar o pasar la meta: " << meta << endl;
+			return true ;
+		}
+		iter = iter->nodes[direccion_juego];
+	}
+
+	cout << "Nadie alcanzo la meta : " << meta << endl;
+	cout << "Se Vuelve a crear la baraja y repartir las manos" << endl;
+	mazo.CrearCartas();
+	pila_descarte.~Cards_List();
+	while (mazo.m_head->numero == 8) mazo.Barajear();
+	for (int i = 0; i < NumeroDeJugadores; i++) {
+		iter->mazo_mano.~Cards_List();
+		iter = iter->nodes[direccion_juego];
+	}
+	if (NumeroDeJugadores == 2) repartir_cartas(7, NumeroDeJugadores);
+	if (NumeroDeJugadores > 2) repartir_cartas(8, NumeroDeJugadores);
+
+	cout << "A empezar denuevo :D pero eso si se mantienen los puntajes ;)" << endl;
+	return false;
+
+}
+
 template<class T>
 inline void Game<T>::iniciar_ronda(){
 	int id_temp = 52;
@@ -98,50 +146,16 @@ inline void Game<T>::iniciar_ronda(){
 	bool condicion_ganar = false;
 	bool pasar_ronda = false;
 	int condicion_ronda = 1;
-	int condicion_seguir = 0;
+	string condicion_seguir ;
 	bool condicion_dar = 0;	
-	int meta;
-	if (NumeroDeJugadores == 2) {
-		meta = 100;
-	}
-	if (NumeroDeJugadores == 3) {
-		meta = 150;
-	}
-	if (NumeroDeJugadores == 4) {
-		meta = 200;
-	}
+	
 	while (condicion_ganar != true) {
 		while (pasar_ronda != true) {
-			if (mazo.m_head == nullptr) {
-				cout << endl << "Se terminaron las cartas D:" << endl;
-				cout << "Calcular Los Puntajes de los jugadores" << endl;
-				cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
-				Player_Node<T> *iter = Jugadores->player_init;
-				for (int i = 0; i < NumeroDeJugadores; i++) {
-					cout << "NombreDelJugador: " << iter->nombre << endl;
-					iter->CalcularPuntaje();
-					if (iter->Puntuacion >= meta) {
-						cout << "Gano el jugador : " << iter->nombre << " por llegar o pasar la meta: " << meta << endl;
-					}
-					iter = iter->nodes[direccion_juego];
-				}
-				cout << "Nadie alcanzo la meta : " << meta << endl;
-				cout << "Se Vuelve a crear la baraja y repartir las manos" << endl;
 
-				mazo.CrearCartas();
-				id_temp = 52;
-				while (mazo.m_head->numero == 8) mazo.Barajear();
-				pila_descarte.Insert(id_temp, mazo.m_head->numero, mazo.m_head->palo); id_temp--;
-				mazo.Remove(mazo.m_head->id);
-				mazo.PrintNumeroDeCartas();
-
-				cout << "A empezar denuevo :D pero eso si se mantienen los puntajes ;)" << endl;
-				condicion_ronda = true;
-				pasar_ronda = true;
-			}
+			
 			cout << endl << "____________________________8LOCOS_________________________________" << endl;
 			
-			cout << "NumeroDeJugadores: " << NumeroDeJugadores << endl;
+			cout << " NumeroDeJugadores: " << NumeroDeJugadores << endl;
 			mazo.PrintNumeroDeCartas();
 			cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
 			iterador_ronda->mazo_mano.Print();
@@ -161,50 +175,58 @@ inline void Game<T>::iniciar_ronda(){
 					system("cls");
 				}
 				else {
+					Card_Node<T> **temp;
+					int id_a_dar;
 					while (condicion_dar != true) {
-						int id_a_dar = 0;
-						cout << "Ingrese la id de la carta a dar:";
+						cout << "Ingrese la ID de la carta a dar:";
 						cin >> id_a_dar; cout << endl;
-						Card_Node<T> **temp;
 						if (!iterador_ronda->mazo_mano.find(id_a_dar, temp)) {
-							cout << endl << "ID invalida" << endl;
-							continue;
+							cout << endl << "ID invalida!, intentelo de nuevo..." << endl;
 						}
-						if ((*temp)->numero == 8) {
-							cout << endl << "¡Tienes un comodin!Puedes colocar una carta otravez" << endl;
-							system("pause");
-							system("cls");
-							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
-							iterador_ronda->mazo_mano.Remove(id_a_dar);
+						else{ condicion_dar = true; }
+					}
+					iterador_ronda->mazo_mano.find(id_a_dar, temp);
+					if ((*temp)->numero == 8) {
+						cout << endl << "Tienes un comodin!Puedes colocar una carta otravez" << endl;
+						//system("pause");
+						//system("cls");
+						pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
+						iterador_ronda->mazo_mano.Remove(id_a_dar);
 
-							cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
-							iterador_ronda->mazo_mano.Print();
-							cout << endl;
-
+						cout << endl << "------Mazo de: " << iterador_ronda->nombre << "-------" << endl;
+						iterador_ronda->mazo_mano.Print();
+						cout << endl;
+						condicion_dar = false;
+						while (condicion_dar != true) {
 							cout << "Ingresa la id de cualquier carta: "; cin >> id_a_dar;
-							iterador_ronda->mazo_mano.find(id_a_dar, temp);	
-							pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
-							iterador_ronda->mazo_mano.Remove(id_a_dar);
-							condicion_dar = true;
-							pasar_ronda = true;
-							continue;
-						}
-
-						if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
+							if (iterador_ronda->mazo_mano.find(id_a_dar, temp)) {
+								//iterador_ronda->mazo_mano.find(id_a_dar, temp);
 								pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
 								iterador_ronda->mazo_mano.Remove(id_a_dar);
 								condicion_dar = true;
 								pasar_ronda = true;
-					
+								//continue
+							}
+							else { cout << "Ingrese una ID valida, intentelo otra vez..." << endl; }
 						}
-						
+					}
+					
+					if ((*temp)->numero == pila_descarte.m_head->numero || (*temp)->palo == pila_descarte.m_head->palo) {
+						if ((*temp)->numero == 11) {
+							cout << "---!!! A TODO GAAAAS!!!!, cambiasta la direccion del juego---" << endl;
+							direccion_juego = 0;
+						}
+						pila_descarte.Insert(id_temp, (*temp)->numero, (*temp)->palo); id_temp--;
+						iterador_ronda->mazo_mano.Remove(id_a_dar);
+						condicion_dar = true;
+						pasar_ronda = true;
 					}
 				}
 			}
 			condicion_dar=false;
 
 			if (condicion_ronda == 2) {
-				if (/*!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)*/false) { //cambiar aca para que puedas sacar con o sin restriccion
+				if (verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) { //cambiar aca para que puedas sacar con o sin restriccion
 					cout << "Usted tiene cartas que puede jugar, ¡no sea tramposo!" << endl;
 					system("pause");
 					system("cls");
@@ -224,14 +246,32 @@ inline void Game<T>::iniciar_ronda(){
 				condicion_ganar = true;
 				break; break;
 			}
-			cout << endl << "____________________________Fin Del Turno_________________________________" << endl;
-			system("pause");
-			system("cls");
+			if (mazo.m_head == nullptr) { //si se termina el mazo de cartas
+				if (!dar_puntajes()) {
+					id_temp = 52;
+					iterador_ronda = Jugadores->player_init;
+					//si la primera carta es 8
+					pila_descarte.Insert(id_temp, mazo.m_head->numero, mazo.m_head->palo); id_temp--;
+					mazo.Remove(mazo.m_head->id);
+					mazo.PrintNumeroDeCartas();
+					condicion_ganar = false;
+					condicion_ronda = 1;
+					condicion_dar = 0;
+				}
+				else {
+					condicion_ganar = true;
+					condicion_ronda = true;
+					continue;
+				}
+			}
+			
 		}
-
+		cout << endl << "____________________________Fin Del Turno_________________________________" << endl;
+		system("pause");
+		system("cls");
 		iterador_ronda = iterador_ronda->nodes[direccion_juego];
 		pasar_ronda = false;
-		cout << endl << "seguir? ingrese 1 porfavor" << endl;
+		cout << endl << "----Seguir?(Que su compañero no vea sus cartas) ingrese 1 porfavor" << endl;
 		cin >> condicion_seguir;
 		system("cls");
 	}

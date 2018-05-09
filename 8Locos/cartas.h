@@ -36,7 +36,7 @@ public:
 			(*p) && (*p)->id< _id;
 			p = &(*p)->m_next
 			);
-			return (*p) && (*p)->id == _id;
+			return !!((*p) && (*p)->id == _id);
 	}
 
 	bool Insert(T _id,int _numero,string _palo) {
@@ -62,9 +62,15 @@ public:
 	void Print() {
 		Card_Node<T>**p;
 		p = &m_head;
+		cout << "--> ---IDs---||---Numero---||---Palo---"<<endl;
 		cout << " --> ";
 		while (*p != nullptr) {
-			cout <<" ID:("<<(*p)->id<<") --- "<<(*p)->numero << " ---  " << (*p)->palo << endl;
+			cout << " ID:(" << (*p)->id << ") ---> ";
+			if((*p)->numero==1) cout << 'A' << " ---  " << (*p)->palo << endl;
+			else if ((*p)->numero == 11) cout << 'J' << " ---  " << (*p)->palo << endl;
+			else if ((*p)->numero == 12) cout << 'Q' << " ---  " << (*p)->palo << endl;
+			else if ((*p)->numero == 13) cout << 'K' << " ---  " << (*p)->palo << endl;
+			else{ cout << (*p)->numero << " ---  " << (*p)->palo << endl; }
 			p = &(*p)->m_next;
 			cout << " --> ";
 		}
