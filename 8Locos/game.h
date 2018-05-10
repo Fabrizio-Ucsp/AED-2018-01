@@ -226,8 +226,8 @@ inline void Game<T>::iniciar_ronda(){
 			condicion_dar=false;
 
 			if (condicion_ronda == 2) {
-				if (verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) { //cambiar aca para que puedas sacar con o sin restriccion
-					cout << "Usted tiene cartas que puede jugar, ¡no sea tramposo!" << endl;
+				if (!verificar_cartas(iterador_ronda->id, pila_descarte.m_head->numero, pila_descarte.m_head->palo)) { //cambiar aca para que puedas sacar con o sin restriccion
+					cout << "Usted tiene cartas que puede jugar, Â¡no sea tramposo!" << endl;
 					system("pause");
 					system("cls");
 				}
@@ -240,7 +240,7 @@ inline void Game<T>::iniciar_ronda(){
 				}
 			}
 			if (iterador_ronda->mazo_mano.m_head == nullptr) {
-				cout << "¡¡¡¡¡USTED GANOO :D !!!! " << endl;
+				cout << "Â¡Â¡Â¡Â¡Â¡USTED GANOO :D !!!! " << endl;
 				condicion_ronda = true;
 				pasar_ronda = true;
 				condicion_ganar = true;
@@ -271,7 +271,7 @@ inline void Game<T>::iniciar_ronda(){
 		system("cls");
 		iterador_ronda = iterador_ronda->nodes[direccion_juego];
 		pasar_ronda = false;
-		cout << endl << "----Seguir?(Que su compañero no vea sus cartas) ingrese 1 porfavor" << endl;
+		cout << endl << "----Seguir?(Que su compaÃ±ero no vea sus cartas) ingrese 1 porfavor" << endl;
 		cin >> condicion_seguir;
 		system("cls");
 	}
