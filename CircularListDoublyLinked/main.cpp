@@ -1,140 +1,208 @@
-#include<stdio.h>
-#include<conio.h>
 #include<iostream>
 using namespace std;
-struct node
-{
-	int data;
-	node *next, *prev;
-}*p = NULL, *head = NULL, *r = NULL, *np = NULL, *tail = NULL;
-int c = 0;
-void create(int x)
-{
-	np = new node;
-	np->data = x;
-	np->next = NULL;
-	np->prev = NULL;
-	if (c == 0)
-	{
-		tail = np;
-		head = np;
-		p = head;
-		p->next = head;
-		p->prev = head;
-		c++;
+
+template <class T>
+class Node {
+public:
+	T data;
+	Node<T> *next;
+	Node<T> *prev;
+	Node(T x) {
+		data = x;
+		next = NULL;
+		prev = NULL;
 	}
-	else if (c == 1)
-	{
-		p = head;
-		r = p;
-		if (np->data < p->data)
-		{
-			np->next = p;
-			p->prev = np;
-			head = np;
-			p->next = np;
-			np->prev = p;
-			tail = p;
-		}
-		else if (np->data > p->data)
-		{
-			p->next = np;
-			np->prev = p;
-			np->next = head;
-			p->prev = np;
-		}
-		c++;
+	Node(T x, Node<T> *_next) {
+		data = x;
+		next = _next;
 	}
-	else {
-		p = head;
-		r = p;
-		if (np->data < p->data)
-		{
-			np->next = p;
-			p->prev = np;
-			head = np;
-			do
-			{
-				p = p->next;
-			} while (p->next != r);
-			tail = p;
-			p->next = np;
-			np->prev = p;
+};
+
+template <class T>
+class CList {
+public:
+	Node<T> *head;
+	Node<T> *tail;
+	T Cantidad;
+	CList() {
+		head = NULL;
+		tail = NULL;
+	}
+
+	int isEmpty() {
+		return head == NULL && tail == NULL;
+	}
+	void Insert(int info) {
+		Node<T> *tmp;
+		tmp = head;
+		if (Cantidad == 0) {
+			head = NULL;
+			tail = NULL;
+			cout << "La lista esta vacia " << endl;
+			Node<T> *tmp2 = new Node<T>(info);
+			head = tmp2;
+			tail = tmp2;
+			cout << "Se inserto:head " << head->data << endl;
+			Cantidad++;
 		}
-		else if (np->data > p->data)
-		{
-			while (p->next != head && np->data > p->data)
-			{
-				r = p;
-				p = p->next;
-				if (p->next == head && (p->data < np->data))
-				{
-					p->next = np;
-					np->prev = p;
-					np->next = head;
-					tail = np;
-					head->prev = np;
-					break;
-				}
-				else if (np->data < p->data)
-				{
-					r->next = np;
-					np->prev = r;
-					np->next = p;
-					p->prev = np;
-					if (p->next != head)
-					{
-						do
-						{
-							p = p->next;
-						} while (p->next != head);
+		else {
+			cout << "No esta vacio y pasa a evaluar" << endl;
+			if (info < tmp->data && info != tmp->data) {
+				cout << "info es menor a la cabeza:inserta antes del head" << endl;
+				Node<T> *tmp2 = new Node<T>(head->data, head->next);
+				Node<T> *tmp3 = new Node<T>(info);
+				head = tmp3;
+				head->next = tmp2;
+				tmp2->prev = head;
+				tail = tmp2;
+				Cantidad++;
+			}
+			else {
+				cout << "info es mayor a la cabeza:" << endl;
+				Node<T> *truco;
+				truco = tmp;
+				//cout << "info tiene que ser menor diferente a la cabeza" << endl;
+				while (tmp != NULL && info != tmp->data) {
+					if (info < tmp->data) {
+						cout<<"Inserta entre 2 nodos"<<endl;
+						Node<T> *tmp2 = new Node<T>(info);
+						truco->next = tmp2;
+						tmp2->next = tmp;
+						tmp2->prev = truco;
+						tmp->prev = tmp2;
+						Cantidad++;
+						break;
 					}
-					tail = p;
-					break;
+					else {
+						truco = tmp;
+						tmp = tmp->next;
+					}
+					if (tmp == NULL) {
+						cout << "Insert al final de la lista" << endl;
+						Node<T> *tmp4 = new Node<T>(info);
+						truco->next = tmp4;
+						tmp4->prev = truco;
+						tail = tmp4;
+						Cantidad++;
+						break;
+					}
 				}
 			}
 		}
 	}
-}
-void traverse_tail(int i)
-{
-	node *t = tail;
-	int x = 0;
-	while (x <= i)
-	{
-		cout << t->data << "\t";
-		t = t->prev;
-		x++;
+
+	void DeleteVal(int info) {
+		Node<T> *tmp;
+		tmp = head;
+		if (isEmpty()) {
+			cout << "La lista esta vacia no puedes borrar nada" << endl;
+		}
+		else {
+			if (info == tmp->data) {
+				cout << "Borra la cabeza:" << endl;
+				Node<T> *tmp2;
+				tmp2 = head;
+				head = tmp2->next;
+				delete tmp2;
+				Cantidad--;
+			}
+			else {
+				Node<T> *truco;
+				truco = tmp;
+				tmp = tmp->next;
+				while (tmp != NULL) {
+					if (info == tmp->data) {
+						//cout << "caso de borrar la cola" << endl;
+						if (tmp==tail) {
+							cout << "caso de borrar la cola" << endl;
+							truco->next = NULL;
+							if (Cantidad == 0) {
+								head = NULL;
+								tail = NULL;
+							}
+						}
+						cout << "borrar entre nodos" << endl;
+						truco->next = tmp->next;
+						tmp->next->prev = truco;
+						delete tmp;
+						Cantidad--;
+						if (Cantidad == 0) {
+							head = NULL;
+							tail = NULL;
+						}
+						break;
+					}
+					else {
+						truco = tmp;
+						tmp = tmp->next;
+					}
+					if (tmp == NULL) {
+						cout << "No se encontro el numero en la lista" << endl;
+						break;
+					}
+				}
+			}
+		}
 	}
-	cout << endl;
-}
-void traverse_head(int i)
-{
-	node *t = head;
-	int c = 0;
-	while (c <= i)
-	{
-		cout << t->data << "\t";
-		t = t->next;
-		c++;
+
+	void printList() {
+		cout << "--> ";
+		Node<T> *tmp;
+		tmp = head;
+		T i = 0;
+		for (int i = 0; i < Cantidad; i++) {
+			cout << tmp->data;
+			tmp = tmp->next;
+			cout << " --> ";
+		}
+		cout << " // " << endl;
 	}
-	cout << endl;
-}
-int main()
-{
-	int i = 0, n, x, ch;
-	cout << "enter the no of nodes\n";
-	cin >> n;
-	while (i < n)
-	{
-		cout << "\nenter value of node\n";
-		cin >> x;
-		create(x);
-		i++;
+	void ReversePrintList() {
+		cout << "--> ";
+		Node<T> *tmp;
+		tmp = tail;
+		T i = 0;
+		for (int i = 0; i < Cantidad; i++) {
+			cout << tmp->data;
+			tmp = tmp->prev;
+			cout << " --> ";
+		}
+		cout << " // " << endl;
 	}
-	cout << "\nTraversing Doubly Linked List head first\n";
-	traverse_head(n);
-	cout << "\nTraversing Doubly Linked List tail first\n";
-	traverse_tail(n);
+
+};
+
+int main() {
+	CList<int> Lista;
+	int tempo;
+	int tempo2;
+	int hasta = 1;
+	while (hasta != 0) {
+		cout << "Desea : " << endl;
+		cout << "1) Insertar" << endl;
+		cout << "2) Eliminar" << endl;
+		cout << "0) Terminar" << endl;
+		cout << "Ingrese el numero de opcion" << endl;
+		cin >> hasta;
+		if (hasta == 1) {
+			cout << "Ingrese el numero que desea insertar: ";
+			cin >> tempo;
+			Lista.Insert(tempo);
+			cout << "Cantidad de elementos: " << Lista.Cantidad << endl;
+		}
+		if (hasta == 2) {
+			cout << "Ingrese el numero que desea eliminar: ";
+			cin >> tempo2;
+			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
+			Lista.DeleteVal(tempo2);
+			cout << "Cantidad de elementos: " << Lista.Cantidad << endl;
+		}
+		if (hasta == 0) {
+			break;
+		}
+		Lista.printList();
+		Lista.ReversePrintList();
+	}
 	system("pause");
+	return 0;
 }
