@@ -33,6 +33,8 @@ public:
 		return head == NULL && tail == NULL;
 	}
 	void Insert(int info) {
+		//head->prev = tail;
+		//tail->next = head;
 		Node<T> *tmp;
 		tmp = head;
 		if (Cantidad == 0) {
