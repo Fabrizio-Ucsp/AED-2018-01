@@ -23,7 +23,8 @@ void mostrar_reglas() {
 	cout << "de otra carta en la pila.Debes colocar la carta en la parte superior de la " << endl;
 	cout << "pila de descarte y luego le tocará el turno al jugador a tu izquierda." << endl;
 	cout << "En este juego, las cartas con número 8 son los comodines,se puede colocar en cualquier situacion." << endl;
-	cout << "pero eso si,el siguiente jugador puede poner cualquier carta tambien pero ya empezando denuevo con la regla de emparejamiento" << endl;
+	cout << "pero eso si,el jugador tiene que poner cualquier carta tambien pero ya empezar de nuevo con la regla de emparejamiento" << endl;
+	cout << "La carta 'J' permite cambiar la direccion en la que se entragan las cartas, asi que usalas sabiamente." << endl;
 	cout << "Toma una carta de la pila si no tienes ninguna en tu mano que puedas jugar." << endl;
 	cout << "El ganador es aquel que se queda sin cartas" << endl;
 	cout << "Cuando la pila de la baraja se quede sin cartas se contara una puntuacion por jugador" << endl;
@@ -58,7 +59,7 @@ int main(){
 		cin >> menu_item;
 		if (menu_item == 1) Juego.init_game();
 		if (menu_item == 2) mostrar_reglas();
-		if (menu_item == 0) { break; };
+		if (menu_item == 0) { menu_item=0; };
 	}
 
 	return 0;

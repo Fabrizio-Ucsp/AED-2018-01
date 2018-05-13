@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\user\documents\github\aed-2018-01\sortwithpointerarithmetic\main.cpp(8): warning C4101: 'p_ptr2': variable local sin referencia
+c:\users\user\documents\github\aed-2018-01\sortwithpointerarithmetic\main.cpp(7): warning C4101: 'p_ptr1': variable local sin referencia
+  SortWithPointerArithmetic.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\SortWithPointerArithmetic\Debug\SortWithPointerArithmetic.exe
