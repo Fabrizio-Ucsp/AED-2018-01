@@ -38,17 +38,17 @@ public:
 		if (Cantidad == 0) {
 			head = NULL;
 			tail = NULL;
-			cout << "La lista esta vacia " << endl;
+			//cout << "La lista esta vacia " << endl;
 			Node<T> *tmp2 = new Node<T>(info);
 			head = tmp2;
 			tail = tmp2;
-			cout << "Se inserto:head " << head->data << endl;
+			//cout << "Se inserto:head " << head->data << endl;
 			Cantidad++;
 		}
 		else {
-			cout << "No esta vacio y pasa a evaluar" << endl;
+			//cout << "No esta vacio y pasa a evaluar" << endl;
 			if (info < tmp->data && info != tmp->data) {
-				cout << "info es menor a la cabeza:inserta antes del head" << endl;
+				//cout << "info es menor a la cabeza:inserta antes del head" << endl;
 				Node<T> *tmp2 = new Node<T>(head->data, head->next);
 				Node<T> *tmp3 = new Node<T>(info);
 				head = tmp3;
@@ -58,13 +58,13 @@ public:
 				Cantidad++;
 			}
 			else {
-				cout << "info es mayor a la cabeza:" << endl;
+				//cout << "info es mayor a la cabeza:" << endl;
 				Node<T> *truco;
 				truco = tmp;
 				//cout << "info tiene que ser menor diferente a la cabeza" << endl;
 				while (tmp != NULL && info != tmp->data) {
 					if (info < tmp->data) {
-						cout<<"Inserta entre 2 nodos"<<endl;
+						//cout<<"Inserta entre 2 nodos"<<endl;
 						Node<T> *tmp2 = new Node<T>(info);
 						truco->next = tmp2;
 						tmp2->next = tmp;
@@ -78,7 +78,7 @@ public:
 						tmp = tmp->next;
 					}
 					if (tmp == NULL) {
-						cout << "Insert al final de la lista" << endl;
+						//cout << "Insert al final de la lista" << endl;
 						Node<T> *tmp4 = new Node<T>(info);
 						truco->next = tmp4;
 						tmp4->prev = truco;
@@ -114,14 +114,14 @@ public:
 					if (info == tmp->data) {
 						//cout << "caso de borrar la cola" << endl;
 						if (tmp==tail) {
-							cout << "caso de borrar la cola" << endl;
+							//cout << "caso de borrar la cola" << endl;
 							truco->next = NULL;
 							if (Cantidad == 0) {
 								head = NULL;
 								tail = NULL;
 							}
 						}
-						cout << "borrar entre nodos" << endl;
+						//cout << "borrar entre nodos" << endl;
 						truco->next = tmp->next;
 						tmp->next->prev = truco;
 						delete tmp;
@@ -189,6 +189,8 @@ int main() {
 			cin >> tempo;
 			Lista.Insert(tempo);
 			cout << "Cantidad de elementos: " << Lista.Cantidad << endl;
+			system("pause");
+			system("cls");
 		}
 		if (hasta == 2) {
 			cout << "Ingrese el numero que desea eliminar: ";
@@ -196,6 +198,8 @@ int main() {
 			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
 			Lista.DeleteVal(tempo2);
 			cout << "Cantidad de elementos: " << Lista.Cantidad << endl;
+			system("pause");
+			system("cls");
 		}
 		if (hasta == 0) {
 			break;
