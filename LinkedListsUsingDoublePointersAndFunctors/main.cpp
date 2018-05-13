@@ -33,10 +33,10 @@ class CList {
 		bool find(T x, CNode<T>**& p) {
 			for (
 				p = &m_head; 
-				(*p) && m_cmp( (*p)->data, x);
+				(*p) != NULL && m_cmp( (*p)->data, x);
 				p = &(*p)->m_next
 				);
-			return (*p) && (*p)->data == x;
+			return (*p) != NULL && (*p)->data == x;
 		}
 
 		bool Insert(T x) {

@@ -13,15 +13,18 @@ struct CGreater {
 };
 
 template <class T>
-struct CBinNode{
+class CBinNode {
+public: 
 	T data;
 	T nivel;
-	CBinNode<T>*nodes[2];
-	CBinNode(T x) {
-		nodes[0] = nodes[1] = 0;
-		data = x;
+	CBinNode<T>* nodes[2];
+	CBinNode(T _data) {
+		nodes[0] = NULL;
+		nodes[1] = NULL;
+		data = _data;
 	}
 };
+
 template <class T,class C>
 class CBinTree {
 public:
@@ -36,8 +39,13 @@ public:
 	//~CBinTree();
 	bool Find(T x,CBinNode<T>**&p) {
 		T tenporal=0;
-		for (p = &root; *p && (*p)->data != x; p = &((*p)->nodes[m_cmp((*p)->data, x)])) {
-			tenporal++;
+		for (
+			p = &root;
+			*p != NULL && (*p)->data != x;
+			p = &( (*p) -> nodes[ m_cmp((*p)->data, x) ] )
+		)
+		{
+			tenporal++;//??????????????????????????????????????????????
 		}
 		nivel_temporal = tenporal;
 		if (tenporal>nivel_arbol) {
@@ -56,7 +64,7 @@ public:
 	}
 	CBinNode<T> ** HallaReemplazo(CBinNode<T>**&p) {
 		CBinNode<T>**tmp;
-		for (tmp = &(*p)->nodes[0]; (*tmp)->nodes[1] != NULL; tmp = &(*tmp)->nodes[1]);
+		for ( tmp = &(*p)->nodes[0]; (*tmp)->nodes[1] != NULL; tmp = &(*tmp)->nodes[1] );
 		return tmp;
 	}
 	bool Remove(T x) {
@@ -96,7 +104,7 @@ public:
 int main() {
 	CBinTree<int, CLess<int>> Arbol;
 	int tempo;
-	int tempo2;;
+	int tempo2;
 	int hasta = 1;
 	while (hasta != 0) {
 		cout << "Desea : " << endl;
