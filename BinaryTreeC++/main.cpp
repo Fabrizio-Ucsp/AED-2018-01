@@ -130,5 +130,5 @@ int main() {
 		Arbol.PrintTree();
 	}
 	cout << " " << endl;
-	system("pause");
+	getchar();
 }
