@@ -15,8 +15,8 @@ struct CGreater {
 template <class T>
 class CBinNode {
 public: 
-	T data;
-	T nivel;
+	T data=0;
+	T nivel=0;
 	CBinNode<T>* nodes[2];
 	CBinNode(T _data) {
 		nodes[0] = NULL;
@@ -28,9 +28,9 @@ public:
 template <class T,class C>
 class CBinTree {
 public:
-	T tam;
-	T nivel_arbol;
-	T nivel_temporal;
+	T tam=0;
+	T nivel_arbol=0;
+	T nivel_temporal=0;
 	CBinNode<T> *root;
 	C m_cmp;
 	CBinTree() {
@@ -130,5 +130,5 @@ int main() {
 		Arbol.PrintTree();
 	}
 	cout << " " << endl;
-	system("pause");
+	getchar();
 }
