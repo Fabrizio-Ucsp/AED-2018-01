@@ -81,23 +81,35 @@ public:
 	}
 	
 	void InOrder(CBinNode<T>*p,int var) {	
-		if (!p)return;
-		InOrder(p->nodes[0],var);
+		if (!p) {
+			cout << "_";
+			return;
+		}
+		InOrder(p->nodes[0], var);
 		if (p->nivel == var) {
-			cout << p->data << " ";
+			cout << p->data;
 		}
 		InOrder(p->nodes[1],var);
 	}
 
 	void PrintTree() {
+		int nivdelor = nivel_arbol + 1;
 		for (int i = 0; i < nivel_arbol+1; i++) {
+			for (int j = 0; j < nivdelor; j++) {
+				cout << "_";
+			}
 			CBinNode<T>*p;
 			p = root;
 			InOrder(p,i);
 			cout << " " << endl;
+			nivdelor--;
 		}
 		cout << "Numero de valores en el arbol: " << tam << endl;
 		cout << "Niveles que posee el arbol: " << nivel_arbol+1 << endl;
+	}
+
+	void AVL() {
+
 	}
 };
 
