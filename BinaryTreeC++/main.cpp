@@ -134,7 +134,7 @@ int main() {
 			cout << "Ingrese el numero que desea eliminar: ";
 			cin >> tempo2;
 			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
-			Arbol.Remove(tempo2);
+			root = deleteNode(root, tempo2);
 		}
 		if (hasta == 0) {
 			break;

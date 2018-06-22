@@ -180,7 +180,7 @@ void ImprimirArbol2D(struct Node *root) {
 int main()
 {
 	struct Node *root = NULL;
-	cout << "inserciones....." << endl;
+	/*cout << "inserciones....." << endl;
 	root = insert(root, 1);
 	root = insert(root, 8);
 	root = insert(root, 3);
@@ -201,6 +201,33 @@ int main()
 	cout << endl;
 	cout << "Impresion 2D despues de los borrados" << endl;
 	ImprimirArbol2D(root);
-	system("pause");
+	system("pause");*/
+	int tempo;
+	int tempo2;
+	int hasta = 1;
+	cout << "Arbol AVL" << endl;
+	while (hasta != 0) {
+		cout << "Desea : " << endl;
+		cout << "1) Insertar" << endl; //1,8,3,7,2,9,5,6,4
+		cout << "2) Eliminar" << endl; //3,1
+		cout << "0) Terminar" << endl;
+		cout << "Ingrese el numero de opcion" << endl;
+		cin >> hasta;
+		if (hasta == 1) {
+			cout << "Ingrese el numero que desea insertar: ";
+			cin >> tempo;
+			root = insert(root, tempo);
+		}
+		if (hasta == 2) {
+			cout << "Ingrese el numero que desea eliminar: ";
+			cin >> tempo2;
+			cout << "Numero a que quieres borrar es : " << tempo2 << endl;
+			root = deleteNode(root, tempo2);
+		}
+		if (hasta == 0) {
+			break;
+		}
+		ImprimirArbol2D(root);
+	}
 	return 0;
 }
