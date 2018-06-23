@@ -173,7 +173,7 @@ int main()
 {
 	class Node *root = NULL;
 	int ejemploIns[] = { 1,8,3,7,2,9,5,6,4 };
-	int ejemploDel[] = { 3,1 };
+	int ejemploDel[] = { 3,1,6 };
 	cout << "inserciones....." << endl;
 	for (int i = 0; i < 9; i++) {
 		root = insert(root, ejemploIns[i]);
@@ -183,7 +183,7 @@ int main()
 	cout << "Impresion 2D despues de las inserciones" << endl;
 	ImprimirArbol2D(root);
 	cout << "borrados....." << endl;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 3; i++) {
 		root = deleteNode(root, ejemploDel[i]);
 	}
 	cout << endl;

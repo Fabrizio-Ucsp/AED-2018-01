@@ -1,2 +1,3 @@
 ﻿  main.cpp
+c:\users\fabrizio\documents\github\aed-2018-01\grafocondijkstra\main.cpp(26): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
   GrafoConDijkstra.vcxproj -> C:\Users\Fabrizio\Documents\GitHub\AED-2018-01\GrafoConDijkstra\x64\Debug\GrafoConDijkstra.exe
