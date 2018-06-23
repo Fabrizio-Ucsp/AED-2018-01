@@ -1,10 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<iostream>
+#include<list>
 using namespace std;
 
-struct Node
+class Node
 {
+public:
 	int key;
 	struct Node *left;
 	struct Node *right;
@@ -13,7 +15,7 @@ struct Node
 
 int max(int a, int b);
 
-int height(struct Node *N)
+int height(class Node *N)
 {
 	if (N == NULL)
 		return 0;
@@ -25,9 +27,9 @@ int max(int a, int b)
 	return (a > b) ? a : b;
 }
 
-struct Node* newNode(int key)
+class Node* newNode(int key)
 {
-	struct Node* node = (struct Node*) malloc(sizeof(struct Node));
+	class Node* node = (class Node*) malloc(sizeof(class Node));
 	node->key = key;
 	node->left = NULL;
 	node->right = NULL;
@@ -35,10 +37,10 @@ struct Node* newNode(int key)
 	return(node);
 }
 
-struct Node *rightRotate(struct Node *y)
+class Node *rightRotate(class Node *y)
 {
-	struct Node *x = y->left;
-	struct Node *T2 = x->right;
+	class Node *x = y->left;
+	class Node *T2 = x->right;
 	x->right = y;
 	y->left = T2;
 	y->height = max(height(y->left), height(y->right)) + 1;
@@ -46,10 +48,10 @@ struct Node *rightRotate(struct Node *y)
 	return x;
 }
 
-struct Node *leftRotate(struct Node *x)
+class Node *leftRotate(class Node *x)
 {
-	struct Node *y = x->right;
-	struct Node *T2 = y->left;
+	class Node *y = x->right;
+	class Node *T2 = y->left;
 	y->left = x;
 	x->right = T2;
 	x->height = max(height(x->left), height(x->right)) + 1;
@@ -57,13 +59,13 @@ struct Node *leftRotate(struct Node *x)
 	return y;
 }
 
-int getBalance(struct Node *N)
+int getBalance(class Node *N)
 {
 	if (N == NULL) return 0;
 	return height(N->left) - height(N->right);
 }
 
-struct Node* insert(struct Node* node, int key)
+class Node* insert(class Node* node, int key)
 {
 	if (node == NULL) return(newNode(key));
 	if (key < node->key) node->left = insert(node->left, key);
@@ -90,14 +92,14 @@ struct Node* insert(struct Node* node, int key)
 	return node;
 }
 
-struct Node * minValueNode(struct Node* node)
+class Node * minValueNode(class Node* node)
 {
-	struct Node* current = node;
+	class Node* current = node;
 	while (current->left != NULL) current = current->left;
 	return current;
 }
 
-struct Node* deleteNode(struct Node* root, int key)
+class Node* deleteNode(class Node* root, int key)
 {
 	if (root == NULL) return root;
 	if (key < root->key) root->left = deleteNode(root->left, key);
@@ -106,7 +108,7 @@ struct Node* deleteNode(struct Node* root, int key)
 	{
 		if ((root->left == NULL) || (root->right == NULL))
 		{
-			struct Node *temp = root->left ? root->left : root->right;
+			class Node *temp = root->left ? root->left : root->right;
 			if (temp == NULL)
 			{
 				temp = root;
@@ -117,7 +119,7 @@ struct Node* deleteNode(struct Node* root, int key)
 		}
 		else
 		{
-			struct Node* temp = minValueNode(root->right);
+			class Node* temp = minValueNode(root->right);
 			root->key = temp->key;
 			root->right = deleteNode(root->right, temp->key);
 		}
@@ -143,17 +145,7 @@ struct Node* deleteNode(struct Node* root, int key)
 	return root;
 }
 
-void preOrder(struct Node *root)
-{
-	if (root != NULL)
-	{
-		printf("%d ", root->key);
-		cout << "altura del nodo: " << root->height << endl;
-		preOrder(root->left);
-		preOrder(root->right);
-	}
-}
-void inOrder(struct Node *root, int niv)
+void inOrder(class Node *root, int niv)
 {
 	if (!root) {
 		cout << "_";
@@ -165,7 +157,7 @@ void inOrder(struct Node *root, int niv)
 	}
 	inOrder(root->right, niv);
 }
-void ImprimirArbol2D(struct Node *root) {
+void ImprimirArbol2D(class Node *root) {
 	int temporalDeNivel = height(root);
 	for (int i = height(root); i > 0; i--) {
 		for (int j = 0; j < temporalDeNivel; j++) {
@@ -179,29 +171,26 @@ void ImprimirArbol2D(struct Node *root) {
 
 int main()
 {
-	struct Node *root = NULL;
-	/*cout << "inserciones....." << endl;
-	root = insert(root, 1);
-	root = insert(root, 8);
-	root = insert(root, 3);
-	root = insert(root, 7);
-	root = insert(root, 2);
-	root = insert(root, 9);
-	root = insert(root, 5);
-	root = insert(root, 6);
-	root = insert(root, 4);
+	class Node *root = NULL;
+	int ejemploIns[] = { 1,8,3,7,2,9,5,6,4 };
+	int ejemploDel[] = { 3,1 };
+	cout << "inserciones....." << endl;
+	for (int i = 0; i < 9; i++) {
+		root = insert(root, ejemploIns[i]);
+	}
 	cout << "Altura del arbol: " << height(root) << endl;;
-
 	cout << endl;
 	cout << "Impresion 2D despues de las inserciones" << endl;
 	ImprimirArbol2D(root);
 	cout << "borrados....." << endl;
-	root = deleteNode(root, 3);
-	root = deleteNode(root, 1);
+	for (int i = 0; i < 2; i++) {
+		root = deleteNode(root, ejemploDel[i]);
+	}
 	cout << endl;
 	cout << "Impresion 2D despues de los borrados" << endl;
 	ImprimirArbol2D(root);
-	system("pause");*/
+	system("pause");
+	/*
 	int tempo;
 	int tempo2;
 	int hasta = 1;
@@ -228,6 +217,6 @@ int main()
 			break;
 		}
 		ImprimirArbol2D(root);
-	}
+	}*/
 	return 0;
 }

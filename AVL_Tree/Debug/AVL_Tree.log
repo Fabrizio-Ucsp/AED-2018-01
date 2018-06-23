@@ -1,2 +1,6 @@
 ﻿  main.cpp
-  AVL_Tree.vcxproj -> C:\Users\User\Documents\GitHub\AED-2018-01\AVL_Tree\Debug\AVL_Tree.exe
+c:\users\fabrizio\documents\github\aed-2018-01\avl_tree\main.cpp(11): warning C4099: 'Node': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  c:\users\fabrizio\documents\github\aed-2018-01\avl_tree\main.cpp(8): note: vea la declaración de 'Node'
+c:\users\fabrizio\documents\github\aed-2018-01\avl_tree\main.cpp(12): warning C4099: 'Node': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  c:\users\fabrizio\documents\github\aed-2018-01\avl_tree\main.cpp(8): note: vea la declaración de 'Node'
+  AVL_Tree.vcxproj -> C:\Users\Fabrizio\Documents\GitHub\AED-2018-01\AVL_Tree\Debug\AVL_Tree.exe
