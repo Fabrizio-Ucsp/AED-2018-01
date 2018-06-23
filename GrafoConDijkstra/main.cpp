@@ -305,7 +305,7 @@ int main()
 	// LO DE WIKIPEDIA :V
 	/*
 	G.insertarNodo('0', '1', '2', '3', '4', '5'); //6
-	G.InsAri('0', '1', 7);                //9
+	G.InsAri('0', '1', 7);                        //9
 	G.InsAri('0', '5', 14);
 	G.InsAri('0', '2', 9);
 	G.InsAri('1', '2', 10);
@@ -315,14 +315,24 @@ int main()
 	G.InsAri('3', '4', 6);
 	G.InsAri('4', '5', 9);
 	*/
-	
+	char letra;
 	for (int i = 0; i < ver; i++) {
-
+		letra = '0' + i;
+		G.insertarNodo(letra);
+		//cout << "letra: " << letra << endl;
 	}
-	G.imprimir();
-	if (!G.Dijktra('0', '4')) {
-		cout << "No hay camino" << endl;
+	char ini;
+	char fin;
+	int peso;
+	for (int i = 0; i < ari; i++) {
+		cout << "Inserte el inicio, fin y peso de la arista: " << endl;
+		cin >> ini >> fin >> peso;
+		G.InsAri(ini,fin,peso);
 	}
+	//G.imprimir();
+	cout << "Escriba los nodos que desea saber su camino: " << endl;
+	cin >> ini >> fin;
+	if (!G.Dijktra(ini, fin)) { cout << "No hay camino" << endl; }
 	system("pause");
 	return 0;
 }
