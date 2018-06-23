@@ -8,11 +8,9 @@
 #include <algorithm>
 #include <queue>
 #include <functional>
-#include <assert.h>
 using namespace std;
 template<typename G>
-struct Nodo
-{
+struct Nodo{
 	using N = typename G::Data;
 	using Arista = typename G::Arista;
 	N dato;
@@ -32,7 +30,7 @@ struct Nodo
 template<typename G>
 Nodo<G>::~Nodo() {
 	this->existe = false;
-	set<Arista*> ArApuntYRecibidas;// AA U AR - (AA ∩ AR): Para no eliminar 2 veces una misma arista
+	set<Arista*> ArApuntYRecibidas;
 	for_each(aristasApuntadas.begin(), aristasApuntadas.end(), [&](Arista* arista) {ArApuntYRecibidas.insert(arista); });
 	for_each(aristasRecibidas.begin(), aristasRecibidas.end(), [&](Arista* arista) {ArApuntYRecibidas.insert(arista); });
 
@@ -59,15 +57,12 @@ inline void Nodo<G>::eliminarAristaApuntadayRecibida(Arista* arista) {
 	if (kill != aristasRecibidas.end()) aristasRecibidas.erase(kill);
 }
 template<typename G>
-struct Arista
-{
+struct Arista{
 	using Nodo = typename G::Nodo;
 	using E = typename G::Weight;
-
 	E peso;
-	bool dir;                    //0 = bidir,1 = dir
+	bool dir;      
 	Nodo* nodos[2];
-
 	Arista(Nodo*& n1, Nodo*& n2, E& peso, const bool& dir);
 	~Arista();
 };
@@ -80,11 +75,11 @@ Arista<G>::Arista(Nodo*& n1, Nodo*& n2, E& peso, const bool& dir) :peso(peso), d
 
 template<typename G>
 Arista<G>::~Arista() {
-	if (nodos[0]->existe && nodos[1]->existe) { ///Grafo.removerArista()
+	if (nodos[0]->existe && nodos[1]->existe) {
 		nodos[0]->eliminarAristaApuntadayRecibida(this);
 		nodos[1]->eliminarAristaApuntadayRecibida(this);
 	}
-	else {                                      ///Grafo.removerNodo()
+	else {                          
 		Nodo* nodoNoEliminado = nodos[nodos[1]->existe];
 		nodoNoEliminado->eliminarAristaApuntadayRecibida(this);
 	}
@@ -135,7 +130,7 @@ public:
 	using Weight = E;
 private:
 	list<Nodo*> universoNodos;
-	Nodo* buscarNodo(const N& contenido, size_t& pos = basura) const;
+	Nodo* buscarNodo(const N& contenido, size_t& pos = nada) const;
 public:
 	Grafo() = default;
 	~Grafo();
@@ -145,17 +140,12 @@ public:
 	bool insertarNodo(const N& n, Args... otrosParametros);
 	bool removerNodo(const N& cont_arista);
 
-	bool insertarEnlace(const N& contenido_a, const N& contenido_b, E peso, const bool& dir);
+	bool InsAri(const N& contenido_a, const N& contenido_b, E peso);
 	bool removerEnlace(const N& contenido_a, const N& contenido_b);
-	//Agregar un dixtra del tipo distancia entre dos nodos.
-	//Funciones auxiliares
 	void imprimir() const;
 	bool Dijktra(const N & contenido_nodoA, const N & contenido_nodoB);
 	bool noEsEsteNodo(Nodo*& nodo, Arista*& arista) const;
 };
-
-
-
 template<typename N, typename E>
 Nodo<Grafo<N, E>>* Grafo<N, E>::buscarNodo(const N & contenido, size_t & pos) const {
 	pos = 0;
@@ -170,10 +160,7 @@ Nodo<Grafo<N, E>>* Grafo<N, E>::buscarNodo(const N & contenido, size_t & pos) co
 
 template<typename N, typename E>
 Grafo<N, E>::~Grafo() {
-	cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
-	cout << "--------------DESTRUCTOR---------------" << endl;
 	for_each(universoNodos.begin(), universoNodos.end(), [](Nodo* nodo) {delete nodo; });
-	cout << "-----------------FIN-------------------" << endl;
 }
 
 template<typename N, typename E>
@@ -193,7 +180,7 @@ bool Grafo<N, E>::insertarNodo(const N& n, Args ...otrosParametros) {
 }
 
 template<typename N, typename E>
-bool Grafo<N, E>::removerNodo(const N& cont_arista) {//Elimina el nodo y su presencia en universoNodos.
+bool Grafo<N, E>::removerNodo(const N& cont_arista) {
 	size_t pos = 0;
 	delete buscarNodo(cont_arista, pos);
 
@@ -205,20 +192,18 @@ bool Grafo<N, E>::removerNodo(const N& cont_arista) {//Elimina el nodo y su pres
 }
 
 template<typename N, typename E>
-bool Grafo<N, E>::insertarEnlace(const N& contenido_a, const N& contenido_b, E peso, const bool & dir) {
+bool Grafo<N, E>::InsAri(const N& contenido_a, const N& contenido_b, E peso) {
 	Nodo* Nodo_A = buscarNodo(contenido_a);
 	Nodo* Nodo_B = buscarNodo(contenido_b);
 	if (!Nodo_A || !Nodo_B) return false; //Si no encuentra un nodo
 
-	Arista* nuevaArista = new Arista(Nodo_A, Nodo_B, peso, dir);
-	if (!nuevaArista) return false; //Si no hay espacio en la memoria para asignarle a la nueva arista
+	Arista* nuevaArista = new Arista(Nodo_A, Nodo_B, peso, 0);
+	if (!nuevaArista) return false;
 
 	Nodo_A->agregarAristaApuntada(nuevaArista);
 	Nodo_B->agregarAristaRecibida(nuevaArista);
-	if (dir == BiDir) {
-		Nodo_B->agregarAristaApuntada(nuevaArista);
-		Nodo_A->agregarAristaRecibida(nuevaArista);
-	}
+	Nodo_B->agregarAristaApuntada(nuevaArista);
+	Nodo_A->agregarAristaRecibida(nuevaArista);
 	return true;
 }
 
@@ -227,9 +212,7 @@ bool Grafo<N, E>::removerEnlace(const N& contenido_a, const N& contenido_b)
 {
 	Nodo* Nodo_A = buscarNodo(contenido_a);
 	Nodo* Nodo_B = buscarNodo(contenido_b);
-	if (!Nodo_A || !Nodo_B) return false; //Si no encuentra algun nodo
-										  ///Certeza de que una arista apunta a la otra
-
+	if (!Nodo_A || !Nodo_B) return false;
 	list<Arista*>& aristasA = Nodo_A->aristasApuntadas;
 	for (auto arista : aristasA) {
 		if (arista->nodos[1] == Nodo_B) {
@@ -244,7 +227,6 @@ bool Grafo<N, E>::removerEnlace(const N& contenido_a, const N& contenido_b)
 			return true;
 		}
 	}
-	///No se encontro nada
 	return false;
 }
 
@@ -255,7 +237,7 @@ void Grafo<N, E>::imprimir() const {
 		for (Arista* itrAristas : itrNodos->aristasApuntadas) {
 			cout << itrAristas->peso << '(' << itrAristas->nodos[noEsEsteNodo(itrNodos, itrAristas)]->dato << "), ";
 		}
-		cout << "\b\b  \n";                  //Elimina de "A1, B9, ... ,Z100, " la parte final ", " sobrante.
+		cout << "\b\b  \n";
 	}
 }
 
@@ -265,7 +247,7 @@ bool Grafo<N, E>::Dijktra(const N& cont_nodoOrigen, const N& cont_nodoDestino)
 	for_each(universoNodos.begin(), universoNodos.end(), [](Nodo* nodo) {nodo->distancia = INT_MAX; });
 	Nodo* nodoOrigen = buscarNodo(cont_nodoOrigen);
 	Nodo* nodoDestino = buscarNodo(cont_nodoDestino);
-	if (!nodoOrigen || !nodoDestino) return false; //Si no encuentra algun nodo, detengo el algoritmo ahi mismo
+	if (!nodoOrigen || !nodoDestino) return false;
 	nodoOrigen->distancia = 0;
 	if (nodoOrigen == nodoDestino) {
 		cout << "La distancia minima es: " << 0 << " y el camino es nada" << endl;
@@ -285,8 +267,6 @@ bool Grafo<N, E>::Dijktra(const N& cont_nodoOrigen, const N& cont_nodoDestino)
 		threadsVivos.emplace_back(itr->nodos[1], itr->peso, valoresCamino);
 		itr->nodos[1]->distancia = itr->peso;
 	}
-	//imprimirThreads();
-
 	while (threadsVivos.size()) {
 		for (currentThreadNodo& ctn : threadsVivos) {
 			for (Arista*& arista : ctn.currentNodo->aristasApuntadas) {
@@ -300,12 +280,7 @@ bool Grafo<N, E>::Dijktra(const N& cont_nodoOrigen, const N& cont_nodoDestino)
 					nodoOpuesto->distancia = nuevaDistancia;
 				}
 			}
-			/*
-			cout << endl;
-			imprimirThreads();
-			*/
 			if (ctn.currentNodo == nodoDestino) {
-				//cout << "Camino mas corto encontrado" << endl;
 				cout << "La distancia es: " << ctn.distanciaRecorrida << " y el camino recorrido es: " << ctn.retornarCamino() << ctn.currentNodo->dato << endl;
 				return true;
 			}
@@ -314,46 +289,38 @@ bool Grafo<N, E>::Dijktra(const N& cont_nodoOrigen, const N& cont_nodoDestino)
 	}
 	return false;
 }
-
 template<typename N, typename E>
 inline bool Grafo<N, E>::noEsEsteNodo(Nodo *& nodo, Arista *& arista) const
 {
 	return arista->nodos[0] == nodo;
-}
-template <typename N, typename E>
-struct ModeloGrafo {
-private:
-	Grafo<N, E> MyGrafo;
-public:
-	inline void ejecutarComando(const pair<string, vector<int> >& comando) {
-		const string& str = comando.first;
-		const vector<int>& argumentos = comando.second;
+}static size_t nada = 0;
 
-		if (str == "INSERTAR")
-			MyGrafo.insertarNodo(argumentos.at(0));
-	}
-};
-
-static size_t basura = 0;
-enum direccion {
-	BiDir = 0,
-	Dir = 1
-};
 int main()
 {
-	Grafo<char, int> grafo;
-	grafo.insertarNodo('A', 'B', 'C', 'D', 'E', 'X');
-	grafo.insertarEnlace('A', 'B', 2, Dir);
-	grafo.insertarEnlace('A', 'C', 3, Dir);
-	grafo.insertarEnlace('B', 'C', 2, BiDir);
-	grafo.insertarEnlace('B', 'D', 6, Dir);
-	grafo.insertarEnlace('C', 'D', 7, Dir);
-	grafo.insertarEnlace('C', 'E', 6, Dir);
-	grafo.insertarEnlace('D', 'X', 7, Dir);
-	grafo.insertarEnlace('D', 'E', 3, Dir);
+	Grafo<char, int> G;
+	cout << "Ingrese el numero de vertices :" << endl;
+	int ver; cin >> ver;
+	cout << "Ingrese el numero de aristas :" << endl;
+	int ari; cin >> ari;
+	// LO DE WIKIPEDIA :V
+	/*
+	G.insertarNodo('0', '1', '2', '3', '4', '5'); //6
+	G.InsAri('0', '1', 7);                //9
+	G.InsAri('0', '5', 14);
+	G.InsAri('0', '2', 9);
+	G.InsAri('1', '2', 10);
+	G.InsAri('1', '3', 15);
+	G.InsAri('2', '5', 2);
+	G.InsAri('2', '3', 11);
+	G.InsAri('3', '4', 6);
+	G.InsAri('4', '5', 9);
+	*/
+	
+	for (int i = 0; i < ver; i++) {
 
-	grafo.imprimir();
-	if (!grafo.Dijktra('C', 'X')) {
+	}
+	G.imprimir();
+	if (!G.Dijktra('0', '4')) {
 		cout << "No hay camino" << endl;
 	}
 	system("pause");
